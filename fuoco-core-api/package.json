@@ -17,6 +17,8 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@nestjs/graphql": "^10.1.0",
+    "@nestjs/passport": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
     "@nrwl/cli": "14.6.3",
@@ -35,7 +37,10 @@
     "eslint-config-prettier": "8.1.0",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
+    "nestjs-supabase-auth": "^1.0.9",
     "nx": "14.6.3",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0",
     "prettier": "^2.6.2",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
