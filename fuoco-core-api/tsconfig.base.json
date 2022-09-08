@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@fuoco-core-api/auth": ["libs/auth/src/index.ts"]
+      "@fuoco-core-api/cqrs": ["libs/cqrs/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
