@@ -25,5 +25,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "fuoco-appdev-core-api"
-          entrypoint: file:///libs/core/src/index.ts
-          root: fuoco-core-api
+          entrypoint: src/index.js
+          root: fuoco-core-api/dist/libs/core
