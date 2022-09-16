@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "npx nx serve",
-    "build": "npxnx build",
+    "build": "npx nx build",
     "test": "npx nx test"
   },
   "dependencies": {
