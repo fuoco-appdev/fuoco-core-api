@@ -18,11 +18,8 @@ jobs:
         working-directory: ./fuoco-core-api
         
       - name: Build project
-        uses: mansagroup/nrwl-nx-action@v2
-        with:
-          targets: build
-          all: true
-          workingDirectory: ./fuoco-core-api
+        run: npm run build
+        working-directory: ./fuoco-core-api
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
