@@ -15,7 +15,10 @@ jobs:
 
       # TODO: add a build step here
       - name: Build project
-        run: npx nx run build
+        uses: mansagroup/nrwl-nx-action@v2
+        with:
+          targets: build
+          affected: 'true' # Defaults to true, therefore optional
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
