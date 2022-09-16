@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@fuoco-core-api/cqrs": ["libs/cqrs/src/index.ts"]
+      "@fuoco.appdev/auth-api": ["libs/auth/src/index.ts"],
+      "@fuoco.appdev/core-api": ["libs/core/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

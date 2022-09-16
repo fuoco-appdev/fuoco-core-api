@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports, @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import * as Oak from "https://deno.land/x/oak/mod.ts";
+import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
 
 import { EndpointContext } from "./endpoint-context";
   
-  export class CQRS {
+  export class Core {
     private static endpointHandler<
       R extends string,
       P extends Oak.RouteParams<R> = Oak.RouteParams<R>,
@@ -47,25 +47,25 @@ import { EndpointContext } from "./endpoint-context";
         const optionsEndpoints = controller.constructor.prototype.optionsEndpoints;
         const patchEndpoints = controller.constructor.prototype.patchEndpoints;
         if (getEndpoints) {
-            CQRS.addGetEndpoints(basePath, router, controller, getEndpoints);
+            Core.addGetEndpoints(basePath, router, controller, getEndpoints);
         }
         if (postEndpoints) {
-            CQRS.addPostEndpoints(basePath, router, controller, postEndpoints);
+            Core.addPostEndpoints(basePath, router, controller, postEndpoints);
         }
         if (deleteEndpoints) {
-            CQRS.addDeleteEndpoints(basePath, router, controller, deleteEndpoints);
+            Core.addDeleteEndpoints(basePath, router, controller, deleteEndpoints);
         }
         if (putEndpoints) {
-            CQRS.addPutEndpoints(basePath, router, controller, putEndpoints);
+            Core.addPutEndpoints(basePath, router, controller, putEndpoints);
         }
         if (headEndpoints) {
-            CQRS.addHeadEndpoints(basePath, router, controller, headEndpoints);
+            Core.addHeadEndpoints(basePath, router, controller, headEndpoints);
         }
         if (optionsEndpoints) {
-            CQRS.addOptionsEndpoints(basePath, router, controller, optionsEndpoints);
+            Core.addOptionsEndpoints(basePath, router, controller, optionsEndpoints);
         }
         if (patchEndpoints) {
-            CQRS.addGetEndpoints(basePath, router, controller, patchEndpoints);
+            Core.addGetEndpoints(basePath, router, controller, patchEndpoints);
         }
       }
     }
@@ -82,7 +82,7 @@ import { EndpointContext } from "./endpoint-context";
                 Oak.RouteParams<string>,
                 Record<string | number, string | undefined>
               >) => void);
-            const wrapper = CQRS.endpointHandler(
+            const wrapper = Core.endpointHandler(
               controller,
               (ctx) => handler.call(controller, ctx.params, ctx),
             );
@@ -102,7 +102,7 @@ import { EndpointContext } from "./endpoint-context";
                 Oak.RouteParams<string>,
                 Record<string | number, string | undefined>
               >) => void);
-            const wrapper = CQRS.endpointHandler(
+            const wrapper = Core.endpointHandler(
               controller,
               (ctx) => handler.call(controller, ctx.params, ctx),
             );
@@ -122,7 +122,7 @@ import { EndpointContext } from "./endpoint-context";
                 Oak.RouteParams<string>,
                 Record<string | number, string | undefined>
               >) => void);
-            const wrapper = CQRS.endpointHandler(
+            const wrapper = Core.endpointHandler(
               controller,
               (ctx) => handler.call(controller, ctx.params, ctx),
             );
@@ -142,7 +142,7 @@ import { EndpointContext } from "./endpoint-context";
                 Oak.RouteParams<string>,
                 Record<string | number, string | undefined>
               >) => void);
-            const wrapper = CQRS.endpointHandler(
+            const wrapper = Core.endpointHandler(
               controller,
               (ctx) => handler.call(controller, ctx.params, ctx),
             );
@@ -162,7 +162,7 @@ import { EndpointContext } from "./endpoint-context";
                 Oak.RouteParams<string>,
                 Record<string | number, string | undefined>
               >) => void);
-            const wrapper = CQRS.endpointHandler(
+            const wrapper = Core.endpointHandler(
               controller,
               (ctx) => handler.call(controller, ctx.params, ctx),
             );
@@ -182,7 +182,7 @@ import { EndpointContext } from "./endpoint-context";
                 Oak.RouteParams<string>,
                 Record<string | number, string | undefined>
               >) => void);
-            const wrapper = CQRS.endpointHandler(
+            const wrapper = Core.endpointHandler(
               controller,
               (ctx) => handler.call(controller, ctx.params, ctx),
             );
@@ -202,7 +202,7 @@ import { EndpointContext } from "./endpoint-context";
                 Oak.RouteParams<string>,
                 Record<string | number, string | undefined>
               >) => void);
-            const wrapper = CQRS.endpointHandler(
+            const wrapper = Core.endpointHandler(
               controller,
               (ctx) => handler.call(controller, ctx.params, ctx),
             );
