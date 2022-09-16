@@ -1,7 +1,10 @@
 {
   "name": "@fuoco.appdev/core-api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./dist/libs/core/src/index.js",
   "types": "./dist/libs/core/src/index.d.ts",
-  "module": "./dist/libs/core/src/index.js"
+  "module": "./dist/libs/core/src/index.js",
+  "files": [
+    "dist/libs/core"
+  ]
 }
