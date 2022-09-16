@@ -21,7 +21,9 @@ jobs:
         run: npm run build
         working-directory: ./fuoco-core-api
 
-      - name: Upload to Deno Deploy
+      - name: Upload Core to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "fuoco-appdev-core-api"
+          entrypoint: index.js
+          root: dist/lib/core/src
