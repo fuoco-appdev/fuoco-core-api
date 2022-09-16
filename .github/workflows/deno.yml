@@ -18,7 +18,7 @@ jobs:
         uses: mansagroup/nrwl-nx-action@v2
         with:
           targets: build
-          affected: 'true' # Defaults to true, therefore optional
+          all: 'true'
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
