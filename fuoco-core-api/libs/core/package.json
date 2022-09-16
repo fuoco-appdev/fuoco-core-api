@@ -1,5 +1,5 @@
 {
-  "name": "@fuoco.appdev/core-api",
+  "name": "@fuoco.appdev/core",
   "version": "0.0.11",
   "module": "./src/index.js"
 }
