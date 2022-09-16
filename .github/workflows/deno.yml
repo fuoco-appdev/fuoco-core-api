@@ -26,4 +26,4 @@ jobs:
         with:
           project: "fuoco-appdev-core-api"
           entrypoint: index.ts
-          root: fuoco-core-api
+          root: fuoco-core-api/libs/core/src
