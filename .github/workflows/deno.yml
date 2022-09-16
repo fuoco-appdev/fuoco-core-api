@@ -26,4 +26,4 @@ jobs:
         with:
           project: "fuoco-appdev-core-api"
           entrypoint: index.js
-          root: dist/lib/core/src
+          root: dist/libs/core/src
