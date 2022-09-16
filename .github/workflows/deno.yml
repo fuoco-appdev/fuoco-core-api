@@ -18,7 +18,7 @@ jobs:
         uses: mansagroup/nrwl-nx-action@v2
         with:
           targets: build
-          workingDirectory: ./fuoco-core-api
+          workingDirectory: ./fuoco-core-api/fuoco-core-api
           all: 'true'
 
       - name: Upload to Deno Deploy
