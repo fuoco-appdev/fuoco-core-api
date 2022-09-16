@@ -6,9 +6,9 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "npx nx serve",
-    "build": "npx nx build",
-    "test": "npx nx test"
+    "start": "nx serve",
+    "build": "nx build",
+    "test": "nx test"
   },
   "dependencies": {
     "reflect-metadata": "^0.1.13",
@@ -16,7 +16,6 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@fuoco.appdev/oak": "^11.1.0",
     "@nrwl/cli": "14.6.3",
     "@nrwl/eslint-plugin-nx": "14.6.3",
     "@nrwl/jest": "14.6.3",
