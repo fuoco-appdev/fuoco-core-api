@@ -1,4 +1,6 @@
-import { GuardExecuter } from "../guard-executer";
+/* eslint-disable @typescript-eslint/no-restricted-imports, @typescript-eslint/ban-ts-comment */
+// @ts-ignore
+import { GuardExecuter } from "../guard-executer.ts";
 import * as HttpError from 'http-errors';
 
 export function Guard<T extends typeof GuardExecuter>(executer: T) {

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// eslint-disable-next-line @typescript-eslint/no-restricted-imports, @typescript-eslint/ban-ts-comment
+/* eslint-disable @typescript-eslint/no-restricted-imports, @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
-
-import { EndpointContext } from "./endpoint-context";
+// @ts-ignore
+import { EndpointContext } from "./endpoint-context.ts";
   
   export class Core {
     private static endpointHandler<
