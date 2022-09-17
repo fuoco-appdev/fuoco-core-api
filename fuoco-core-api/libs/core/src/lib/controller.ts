@@ -1,5 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
-export interface IController {
+export class IController {
     path?: any;
     getEndpoints?: any;
     postEndpoints?: any;
