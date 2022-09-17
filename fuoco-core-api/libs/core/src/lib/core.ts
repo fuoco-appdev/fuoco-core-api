@@ -1,8 +1,7 @@
+// deno-lint-ignore-file no-explicit-any ban-types
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-restricted-imports, @typescript-eslint/ban-ts-comment */
-// @ts-ignore
+import { HandleMethod } from "https://deno.land/x/oak@v11.1.0/application.ts";
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
-// @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
   
   export class Core {
@@ -17,7 +16,7 @@ import { EndpointContext } from "./endpoint-context.ts";
           ): Promise<unknown> => await handler.call(arg, ctx, next);
     }
 
-    public static registerHandler(controllers: object[]): Promise<Response> {
+    public static registerHandler(controllers: object[]): HandleMethod {
         const app = new Oak.Application();
         const router = new Oak.Router();
         this.registerRouter(router, controllers);

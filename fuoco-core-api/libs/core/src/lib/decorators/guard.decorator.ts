@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-restricted-imports, @typescript-eslint/ban-ts-comment */
-// @ts-ignore
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// deno-lint-ignore-file no-explicit-any no-unused-vars
 import { GuardExecuter } from "../guard-executer.ts";
-// @ts-ignore
-import * as HttpError from "https://deno.land/x/http_errors/mod.ts";
+import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
 
 export function Guard<T extends typeof GuardExecuter>(executer: T) {
     return function (
@@ -12,8 +11,8 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
       ) {
         const method = descriptor.value;
         const instance = new executer();
-        descriptor.value = async function (...args) {
-            if (await !instance.canExecuteAsync()) throw new HttpError.Forbidden('Not authorized!');
+        descriptor.value = async function (...args: any) {
+            if (await !instance.canExecuteAsync()) throw HttpError.createError(404, 'Not authorized!');
             
             // This part will run when Meteor.isClient == false
             method.apply(this, args);

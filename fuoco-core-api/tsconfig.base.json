@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@fuoco.appdev/auth": ["libs/auth/src/index.ts"],
       "@fuoco.appdev/core": ["libs/core/src/index.ts"]
     }
   },
