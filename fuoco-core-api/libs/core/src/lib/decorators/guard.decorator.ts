@@ -1,4 +1,4 @@
-import {GuardExecuter} from "../guard-executer";
+import { GuardExecuter } from "../guard-executer";
 import * as HttpError from 'http-errors';
 
 export function Guard<T extends typeof GuardExecuter>(executer: T) {
