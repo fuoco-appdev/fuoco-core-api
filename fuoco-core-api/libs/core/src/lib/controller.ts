@@ -8,5 +8,4 @@ export interface IController {
     headEndpoints?: any;
     optionsEndpoints?: any;
     patchEndpoints?: any;
-    [key: string]: any;
 }

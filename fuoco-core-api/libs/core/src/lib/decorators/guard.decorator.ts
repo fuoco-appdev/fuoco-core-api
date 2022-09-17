@@ -15,9 +15,6 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
         const instance = new executer();
         descriptor.value = async function (...args: any) {
             if (await !instance.canExecuteAsync()) throw HttpError.createError(404, 'Not authorized!');
-            
-            // This part will run when Meteor.isClient == false
-            method.apply(this, args);
         };
       }
 }

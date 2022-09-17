@@ -1,9 +1,10 @@
 // deno-lint-ignore-file no-explicit-any ban-types ban-ts-comment
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore
-import { HandleMethod } from "https://deno.land/x/oak@v11.1.0/application.ts";
+import { Handler } from "https://deno.land/std@0.131.0/http/server.ts";
 // @ts-ignore
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
+import { IController } from "./controller.ts";
 // @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
   
@@ -19,13 +20,13 @@ import { EndpointContext } from "./endpoint-context.ts";
           ): Promise<unknown> => await handler.call(arg, ctx, next);
     }
 
-    public static registerHandler(controllers: object[]): HandleMethod {
+    public static registerHandler(controllers: IController[]): Handler {
         const app = new Oak.Application();
         const router = new Oak.Router();
         this.registerRouter(router, controllers);
         app.use(router.routes());
         app.use(router.allowedMethods());
-        return app.handle;
+        return app.handle as Handler;
       }
   
     /**
@@ -33,21 +34,21 @@ import { EndpointContext } from "./endpoint-context.ts";
      */
     private static registerRouter(
       router: Oak.Router<Record<string, any>>,
-      controllers: object[],
+      controllers: IController[],
     ) {
       for (const controller of controllers) {
-        if (!controller.constructor.prototype.path) {
+        if (!controller.path) {
             throw new Error(`Controller ${controller.constructor.name} must have a @Controller() decorator!`);
         }
 
-        const basePath: string = controller.constructor.prototype.path;
-        const getEndpoints = controller.constructor.prototype.getEndpoints;
-        const postEndpoints = controller.constructor.prototype.postEndpoints;
-        const deleteEndpoints = controller.constructor.prototype.deleteEndpoints;
-        const putEndpoints = controller.constructor.prototype.putEndpoints;
-        const headEndpoints = controller.constructor.prototype.headEndpoints;
-        const optionsEndpoints = controller.constructor.prototype.optionsEndpoints;
-        const patchEndpoints = controller.constructor.prototype.patchEndpoints;
+        const basePath: string = controller.path;
+        const getEndpoints = controller.getEndpoints;
+        const postEndpoints = controller.postEndpoints;
+        const deleteEndpoints = controller.deleteEndpoints;
+        const putEndpoints = controller.putEndpoints;
+        const headEndpoints = controller.headEndpoints;
+        const optionsEndpoints = controller.optionsEndpoints;
+        const patchEndpoints = controller.patchEndpoints;
         if (getEndpoints) {
             Core.addGetEndpoints(basePath, router, controller, getEndpoints);
         }
