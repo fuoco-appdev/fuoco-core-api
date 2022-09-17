@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-restricted-imports, @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import { GuardExecuter } from "../guard-executer.ts";
-import * as HttpError from 'http-errors';
+// @ts-ignore
+import * as HttpError from "https://deno.land/x/http_errors/mod.ts";
 
 export function Guard<T extends typeof GuardExecuter>(executer: T) {
     return function (
