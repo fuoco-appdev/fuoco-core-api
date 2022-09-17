@@ -1,6 +1,8 @@
 // deno-lint-ignore-file no-explicit-any ban-types ban-ts-comment
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore
+import {HandlerMethod} from "https://deno.land/x/oak@v11.1.0/application.ts";
+// @ts-ignore
 import { Handler } from "https://deno.land/std@0.131.0/http/server.ts";
 // @ts-ignore
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
@@ -25,7 +27,8 @@ import { EndpointContext } from "./endpoint-context.ts";
         this.registerRouter(router, controllers);
         app.use(router.routes());
         app.use(router.allowedMethods());
-        return app.handle as Handler;
+        const handler = async (request: Request) => await app.handle(request, await Deno.connect({port: 8000}));
+        return handler as Handler;
       }
   
     /**
