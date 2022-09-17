@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@fuoco.appdev/core": ["libs/core/src/index.ts"]
+    },
+    "extensions" : {
+      ".ts": "TS"
     }
   },
   "exclude": ["node_modules", "tmp"]
