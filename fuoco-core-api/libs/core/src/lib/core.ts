@@ -1,7 +1,10 @@
-// deno-lint-ignore-file no-explicit-any ban-types
+// deno-lint-ignore-file no-explicit-any ban-types ban-ts-comment
 /* eslint-disable @typescript-eslint/no-explicit-any */
+// @ts-ignore
 import { HandleMethod } from "https://deno.land/x/oak@v11.1.0/application.ts";
+// @ts-ignore
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
+// @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
   
   export class Core {
