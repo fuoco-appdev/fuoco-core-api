@@ -21,7 +21,7 @@ import { EndpointContext } from "./endpoint-context.ts";
           ): Promise<unknown> => await handler.call(arg, ctx, next);
     }
 
-    public static registerHandler(controllers: IController[]): Handler {
+    public static registerHandler(controllers: object[]): Handler {
         const app = new Oak.Application();
         const router = new Oak.Router();
         this.registerRouter(router, controllers);
