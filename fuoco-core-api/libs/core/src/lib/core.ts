@@ -72,7 +72,7 @@ import { EndpointContext } from "./endpoint-context.ts";
             Core.addOptionsEndpoints(basePath, router, controller, optionsEndpoints);
         }
         if (patchEndpoints) {
-            Core.addGetEndpoints(basePath, router, controller, patchEndpoints);
+            Core.addPatchEndpoints(basePath, router, controller, patchEndpoints);
         }
       }
     }
@@ -83,6 +83,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
+            this.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -124,6 +125,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
+            this.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -144,6 +146,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
+            this.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -164,6 +167,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
+            this.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -184,6 +188,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
+            this.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -204,6 +209,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
+            this.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,

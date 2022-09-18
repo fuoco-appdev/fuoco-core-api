@@ -6,8 +6,8 @@ export function Delete(path: string) {
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      target.prototype.deleteEndpoints = target.prototype.deleteEndpoints || [];
-      target.prototype.deleteEndpoints.push({
+      target.constructor.prototype.deleteEndpoints = target.constructor.prototype.deleteEndpoints || [];
+      target.constructor.prototype.deleteEndpoints.push({
         path,
         key,
         handler: descriptor.value,

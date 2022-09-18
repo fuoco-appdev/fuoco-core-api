@@ -1,11 +1,17 @@
 // deno-lint-ignore-file no-explicit-any
+export interface IEndpoint {
+    path: string;
+    key: string;
+    handler: any;
+}
+
 export class IController {
-    public path?: any;
-    public getEndpoints?: any;
-    public postEndpoints?: any;
-    public deleteEndpoints?: any;
-    public putEndpoints?: any;
-    public headEndpoints?: any;
-    public optionsEndpoints?: any;
-    public patchEndpoints?: any;
+    public path?: string;
+    public getEndpoints?: IEndpoint[];
+    public postEndpoints?: IEndpoint[];
+    public deleteEndpoints?: IEndpoint[];
+    public putEndpoints?: IEndpoint[];
+    public headEndpoints?: IEndpoint[];
+    public optionsEndpoints?: IEndpoint[];
+    public patchEndpoints?: IEndpoint[];
 }

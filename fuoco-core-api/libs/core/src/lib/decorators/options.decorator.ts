@@ -6,8 +6,8 @@ export function Options(path: string) {
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      target.prototype.optionsEndpoints = target.prototype.optionsEndpoints || [];
-      target.prototype.optionsEndpoints.push({
+      target.constructor.prototype.optionsEndpoints = target.constructor.prototype.optionsEndpoints || [];
+      target.constructor.prototype.optionsEndpoints.push({
         path,
         key,
         handler: descriptor.value,

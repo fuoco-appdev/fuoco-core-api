@@ -6,8 +6,8 @@ export function Head(path: string) {
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      target.prototype.headEndpoints = target.prototype.headEndpoints || [];
-      target.prototype.headEndpoints.push({
+      target.constructor.prototype.headEndpoints = target.constructor.prototype.headEndpoints || [];
+      target.constructor.prototype.headEndpoints.push({
         path,
         key,
         handler: descriptor.value,
