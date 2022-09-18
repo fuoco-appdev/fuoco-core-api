@@ -32,7 +32,11 @@ import { EndpointContext } from "./endpoint-context.ts";
             transport?: "tcp" | undefined;
           });
           for await (const conn of listener) {
-            return await app.handle(request, conn);
+            // @ts-ignore
+            const requests = Deno.serveHttp(conn);
+            for await (const { request} of requests) {
+              return await app.handle(request, conn);
+            }
           }
         }
         return handler as Handler;
