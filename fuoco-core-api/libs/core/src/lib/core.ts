@@ -25,20 +25,8 @@ import { EndpointContext } from "./endpoint-context.ts";
         this.registerRouter(router, controllers);
         app.use(router.routes());
         app.use(router.allowedMethods());
-        const handler = async (request: Request, info: ConnInfo) => {
-          const address = remote ? info.remoteAddr : info.localAddr;
-          // @ts-ignore
-          const listener = Deno.listen(address as Deno.ListenOptions & {
-            transport?: "tcp" | undefined;
-          });
-          for await (const conn of listener) {
-            // @ts-ignore
-            const requests = Deno.serveHttp(conn);
-            for await (const { request} of requests) {
-              return await app.handle(request, conn);
-            }
-          }
-        }
+        // @ts-ignore
+        const handler = async (request: Request, conn: ConnInfo) => app.handle(request, conn as Deno.Conn);
         return handler as Handler;
       }
   
