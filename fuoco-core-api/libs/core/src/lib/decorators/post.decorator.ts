@@ -1,19 +1,23 @@
+// deno-lint-ignore-file no-explicit-any
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// deno-lint-ignore-file no-explicit-any ban-ts-comment
-// @ts-ignore
-import { IController } from "../controller.ts";
 
 export function Post(path: string) {
     return function (
-      target: new (...args: any[]) => IController,
+      target: Record<string, any>,
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      target.constructor.prototype.postEndpoints = target.constructor.prototype.postEndpoints || [];
-      target.constructor.prototype.postEndpoints.push({
+      const postEndpointsName = "postEndpoints";
+      if (!Reflect.has(target, postEndpointsName)) {
+        Reflect.set(target, postEndpointsName, []);
+      }
+      
+      const postEndpoints = Reflect.get(target, postEndpointsName);
+      postEndpoints.push({
         path,
         key,
         handler: descriptor.value,
       });
+      Reflect.set(target, postEndpointsName, postEndpoints);
     };
   }

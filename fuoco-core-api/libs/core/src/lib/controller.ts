@@ -6,12 +6,12 @@ export interface IEndpoint {
 }
 
 export class IController {
-    public path?: string;
-    public getEndpoints?: IEndpoint[];
-    public postEndpoints?: IEndpoint[];
-    public deleteEndpoints?: IEndpoint[];
-    public putEndpoints?: IEndpoint[];
-    public headEndpoints?: IEndpoint[];
-    public optionsEndpoints?: IEndpoint[];
-    public patchEndpoints?: IEndpoint[];
+    path?: string;
+    getEndpoints?: IEndpoint[];
+    postEndpoints?: IEndpoint[];
+    deleteEndpoints?: IEndpoint[];
+    putEndpoints?: IEndpoint[];
+    headEndpoints?: IEndpoint[];
+    optionsEndpoints?: IEndpoint[];
+    patchEndpoints?: IEndpoint[];
 }

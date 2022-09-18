@@ -6,6 +6,6 @@ import { IController } from "../controller.ts";
 
 export function Controller(path: string) {
     return function (target: new (...args: any[]) => IController) {
-      target.constructor.prototype.path = path;
+      Reflect.set(target, "path", path);
     };
 }
