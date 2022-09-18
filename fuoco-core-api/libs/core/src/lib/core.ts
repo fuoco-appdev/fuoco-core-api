@@ -59,7 +59,8 @@ import { EndpointContext } from "./endpoint-context.ts";
             Core.addGetEndpoints(basePath, router, controller, getEndpoints);
         }
         if (postEndpoints) {
-            Core.addPostEndpoints(basePath, router, controller, postEndpoints);
+            throw createError(404, "hit post");
+            // Core.addPostEndpoints(basePath, router, controller, postEndpoints);
         }
         if (deleteEndpoints) {
             Core.addDeleteEndpoints(basePath, router, controller, deleteEndpoints);
