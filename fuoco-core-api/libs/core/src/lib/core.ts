@@ -78,6 +78,8 @@ import { EndpointContext } from "./endpoint-context.ts";
         if (patchEndpoints) {
             Core.addPatchEndpoints(basePath, router, controller, patchEndpoints);
         }
+
+        throw createError(404, controller.toString());
       }
     }
 
