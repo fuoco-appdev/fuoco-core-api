@@ -6,6 +6,7 @@ import { ConnInfo, Handler } from "https://deno.land/std@0.131.0/http/server.ts"
 import { createError } from "https://deno.land/x/http_errors@3.0.0/mod.ts";
 // @ts-ignore
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
+import { IController } from "./controller.ts";
 // @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
   
@@ -37,22 +38,22 @@ import { EndpointContext } from "./endpoint-context.ts";
      */
     private static registerRouter(
       router: Oak.Router<Record<string, any>>,
-      controllers: object[],
+      controllers: IController[],
     ) {
       for (const controller of controllers) {
-        if (!controller.constructor.prototype.path) {
+        if (!controller.path) {
             throw new Error(`Controller ${controller.constructor.name} must have a @Controller() decorator!`);
         }
 
-        this.assertEndpoint(controller.constructor.prototype.path);
-        const basePath: string = controller.constructor.prototype.path;
-        const getEndpoints = controller.constructor.prototype.getEndpoints;
-        const postEndpoints = controller.constructor.prototype.postEndpoints;
-        const deleteEndpoints = controller.constructor.prototype.deleteEndpoints;
-        const putEndpoints = controller.constructor.prototype.putEndpoints;
-        const headEndpoints = controller.constructor.prototype.headEndpoints;
-        const optionsEndpoints = controller.constructor.prototype.optionsEndpoints;
-        const patchEndpoints = controller.constructor.prototype.patchEndpoints;
+        Core.assertEndpoint(controller.path);
+        const basePath: string = controller.path;
+        const getEndpoints = controller.getEndpoints;
+        const postEndpoints = controller.postEndpoints;
+        const deleteEndpoints = controller.deleteEndpoints;
+        const putEndpoints = controller.putEndpoints;
+        const headEndpoints = controller.headEndpoints;
+        const optionsEndpoints = controller.optionsEndpoints;
+        const patchEndpoints = controller.patchEndpoints;
         if (getEndpoints) {
             Core.addGetEndpoints(basePath, router, controller, getEndpoints);
         }
@@ -83,7 +84,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
-            this.assertEndpoint(endpoint.path);
+            Core.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -104,7 +105,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
-            this.assertEndpoint(endpoint.path);
+            Core.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -125,7 +126,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
-            this.assertEndpoint(endpoint.path);
+            Core.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -146,7 +147,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
-            this.assertEndpoint(endpoint.path);
+            Core.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -167,7 +168,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
-            this.assertEndpoint(endpoint.path);
+            Core.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -188,7 +189,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
-            this.assertEndpoint(endpoint.path);
+            Core.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -209,7 +210,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
-            this.assertEndpoint(endpoint.path);
+            Core.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -224,8 +225,8 @@ import { EndpointContext } from "./endpoint-context.ts";
         }
     }
 
-    private static assertEndpoint(path: string): void {
-      if (!path.startsWith('/')) {
+    private static assertEndpoint(path: string | undefined): void {
+      if (!path?.startsWith('/')) {
         throw createError(404, `${path} must start with a '/'`);
       }
     }
