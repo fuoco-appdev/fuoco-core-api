@@ -26,17 +26,16 @@ import { EndpointContext } from "./endpoint-context.ts";
         app.use(router.routes());
         app.use(router.allowedMethods());
         const handler = async (request: Request, info: ConnInfo) => {
-          //const address = remote ? info.remoteAddr : info.localAddr;
+          const address = remote ? info.remoteAddr : info.localAddr;
           // @ts-ignore
-          //const listener = Deno.listen(address as Deno.ListenOptions & {
-            //transport?: "tcp" | undefined;
-          //});
-          return new Response("{}");
-          //for await (const conn of listener) {
-            //return await app.handle(request, conn);
-          //}
+          const listener = Deno.listen(address as Deno.ListenOptions & {
+            transport?: "tcp" | undefined;
+          });
+          for await (const conn of listener) {
+            return await app.handle(request, conn);
+          }
         }
-        return handler;
+        return handler as Handler;
       }
   
     /**
