@@ -42,19 +42,20 @@ import { EndpointContext } from "./endpoint-context.ts";
       controllers: object[],
     ) {
       for (const controller of controllers) {
-        if (!controller.constructor.prototype.path) {
+        const basePath: string = Reflect.get(controller, "path");
+        Core.assertEndpoint(basePath);
+
+        if (!basePath) {
             throw new Error(`Controller ${controller.constructor.name} must have a @Controller() decorator!`);
         }
 
-        Core.assertEndpoint(controller.constructor.prototype.path);
-        const basePath: string = controller.constructor.prototype.path;
-        const getEndpoints = controller.constructor.prototype.getEndpoints;
-        const postEndpoints = controller.constructor.prototype.postEndpoints;
-        const deleteEndpoints = controller.constructor.prototype.deleteEndpoints;
-        const putEndpoints = controller.constructor.prototype.putEndpoints;
-        const headEndpoints = controller.constructor.prototype.headEndpoints;
-        const optionsEndpoints = controller.constructor.prototype.optionsEndpoints;
-        const patchEndpoints = controller.constructor.prototype.patchEndpoints;
+        const getEndpoints = Reflect.get(controller, "getEndpoints");
+        const postEndpoints = Reflect.get(controller, "postEndpoints");
+        const deleteEndpoints = Reflect.get(controller, "deleteEndpoints");
+        const putEndpoints = Reflect.get(controller, "putEndpoints");
+        const headEndpoints = Reflect.get(controller, "headEndpoints");
+        const optionsEndpoints = Reflect.get(controller, "optionsEndpoints");
+        const patchEndpoints = Reflect.get(controller, "patchEndpoints");
         if (getEndpoints) {
             Core.addGetEndpoints(basePath, router, controller, getEndpoints);
         }
