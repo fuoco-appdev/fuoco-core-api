@@ -22,9 +22,9 @@ import { EndpointContext } from "./endpoint-context.ts";
     public static registerHandler(controllers: object[], remote: boolean): Handler {
         const app = new Oak.Application();
         const router = new Oak.Router();
-        this.registerRouter(router, controllers);
-        app.use(router.routes());
-        app.use(router.allowedMethods());
+        //this.registerRouter(router, controllers);
+        //app.use(router.routes());
+        //app.use(router.allowedMethods());
         const handler = async (request: Request, info: ConnInfo) => {
           //const address = remote ? info.remoteAddr : info.localAddr;
           // @ts-ignore
