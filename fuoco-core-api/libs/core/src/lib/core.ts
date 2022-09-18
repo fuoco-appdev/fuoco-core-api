@@ -19,17 +19,22 @@ import { EndpointContext } from "./endpoint-context.ts";
           ): Promise<unknown> => await handler.call(arg, ctx, next);
     }
 
-    public static registerHandler(controllers: object[]): Handler {
+    public static registerHandler(controllers: object[], remote: boolean): Handler {
         const app = new Oak.Application();
         const router = new Oak.Router();
         this.registerRouter(router, controllers);
         app.use(router.routes());
         app.use(router.allowedMethods());
-        const handler = async (request: Request, info: ConnInfo) => await app.handle(
-          request,
+        const handler = async (request: Request, info: ConnInfo) => {
+          const address = remote ? info.remoteAddr : info.localAddr;
           // @ts-ignore
-          await Deno.connect(info.localAddr as Deno.ConnectOptions)
-        );
+          const listener = Deno.listen(address as Deno.ListenOptions & {
+            transport?: "tcp" | undefined;
+          });
+          for await (const conn of listener) {
+            return await app.handle(request, conn);
+          }
+        }
         return handler as Handler;
       }
   
