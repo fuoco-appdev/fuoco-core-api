@@ -1,8 +1,10 @@
-// deno-lint-ignore-file no-explicit-any
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// deno-lint-ignore-file ban-ts-comment
+// @ts-ignore
+import { IController } from "../controller.ts";
+
 export function Head(path: string) {
     return function (
-      target: Record<string, any>,
+      target: Record<string, IController>,
       key: string,
       descriptor: PropertyDescriptor,
     ) {

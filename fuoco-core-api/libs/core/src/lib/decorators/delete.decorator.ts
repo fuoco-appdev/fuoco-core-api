@@ -1,8 +1,11 @@
-// deno-lint-ignore-file no-explicit-any
+// deno-lint-ignore-file ban-ts-comment
+// @ts-ignore
+import { IController } from "../controller.ts";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function Delete(path: string) {
     return function (
-      target: Record<string, any>,
+      target: Record<string, IController>,
       key: string,
       descriptor: PropertyDescriptor,
     ) {
