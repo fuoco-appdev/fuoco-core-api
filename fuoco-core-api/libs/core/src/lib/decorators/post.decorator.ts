@@ -1,15 +1,13 @@
-// deno-lint-ignore-file ban-ts-comment
-// @ts-ignore
-import { IController } from "../controller.ts";
-
+// deno-lint-ignore-file no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function Post(path: string) {
     return function (
-      target: Record<string, IController>,
+      target: Record<string, any>,
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      target.constructor.prototype.postEndpoints = target.constructor.prototype.postEndpoints || [];
-      target.constructor.prototype.postEndpoints.push({
+      target.prototype.postEndpoints = target.prototype.postEndpoints || [];
+      target.prototype.postEndpoints.push({
         path,
         key,
         handler: descriptor.value,
