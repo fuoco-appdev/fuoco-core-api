@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore
 import { ConnInfo, Handler } from "https://deno.land/std@0.131.0/http/server.ts";
+import { createError } from "https://deno.land/x/http_errors@3.0.0/mod.ts";
 // @ts-ignore
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
 // @ts-ignore
@@ -100,6 +101,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         controller: object,
         endpoints: EndpointContext[]) {
         for (const endpoint of endpoints) {
+            this.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
                 string,
@@ -212,5 +214,11 @@ import { EndpointContext } from "./endpoint-context.ts";
             );
             router.patch(fullPath, wrapper);
         }
+    }
+
+    private static assertEndpoint(path: string): void {
+      if (!path.startsWith('/')) {
+        throw createError(404, `${path} must start with a '/'`);
+      }
     }
   }
