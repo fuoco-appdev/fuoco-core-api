@@ -1,4 +1,4 @@
-// deno-lint-ignore-file no-explicit-any ban-types ban-ts-comment
+// deno-lint-ignore-file no-explicit-any ban-types ban-ts-comment no-unused-vars require-await
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore
 import { ConnInfo, Handler } from "https://deno.land/std@0.131.0/http/server.ts";
@@ -26,14 +26,15 @@ import { EndpointContext } from "./endpoint-context.ts";
         app.use(router.routes());
         app.use(router.allowedMethods());
         const handler = async (request: Request, info: ConnInfo) => {
-          const address = remote ? info.remoteAddr : info.localAddr;
+          //const address = remote ? info.remoteAddr : info.localAddr;
           // @ts-ignore
-          const listener = Deno.listen(address as Deno.ListenOptions & {
-            transport?: "tcp" | undefined;
-          });
-          for await (const conn of listener) {
-            return await app.handle(request, conn);
-          }
+          //const listener = Deno.listen(address as Deno.ListenOptions & {
+            //transport?: "tcp" | undefined;
+          //});
+          return new Response("{}");
+          //for await (const conn of listener) {
+            //return await app.handle(request, conn);
+          //}
         }
         return handler as Handler;
       }
