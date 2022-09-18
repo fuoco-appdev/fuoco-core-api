@@ -1,4 +1,4 @@
-// deno-lint-ignore-file no-explicit-any ban-types ban-ts-comment no-unused-vars require-await
+// deno-lint-ignore-file no-explicit-any ban-types ban-ts-comment no-unused-vars require-await ban-unused-ignore
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore
 import { ConnInfo, Handler } from "https://deno.land/std@0.131.0/http/server.ts";
@@ -44,6 +44,7 @@ import { EndpointContext } from "./endpoint-context.ts";
             throw new Error(`Controller ${controller.constructor.name} must have a @Controller() decorator!`);
         }
 
+        this.assertEndpoint(controller.constructor.prototype.path);
         const basePath: string = controller.constructor.prototype.path;
         const getEndpoints = controller.constructor.prototype.getEndpoints;
         const postEndpoints = controller.constructor.prototype.postEndpoints;
