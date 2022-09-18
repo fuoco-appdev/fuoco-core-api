@@ -1,8 +1,11 @@
-// deno-lint-ignore-file no-explicit-any
 /* eslint-disable @typescript-eslint/no-explicit-any */
+// deno-lint-ignore-file no-explicit-any ban-ts-comment
+// @ts-ignore
+import { IController } from "../controller.ts";
+
 export function Post(path: string) {
     return function (
-      target: Record<string, any>,
+      target: new (...args: any[]) => IController,
       key: string,
       descriptor: PropertyDescriptor,
     ) {

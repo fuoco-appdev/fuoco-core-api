@@ -39,22 +39,22 @@ import { EndpointContext } from "./endpoint-context.ts";
      */
     private static registerRouter(
       router: Oak.Router<Record<string, any>>,
-      controllers: IController[],
+      controllers: object[],
     ) {
       for (const controller of controllers) {
-        if (!controller.path) {
+        if (!controller.constructor.prototype.path) {
             throw new Error(`Controller ${controller.constructor.name} must have a @Controller() decorator!`);
         }
 
-        Core.assertEndpoint(controller.path);
-        const basePath: string = controller.path;
-        const getEndpoints = controller.getEndpoints;
-        const postEndpoints = controller.postEndpoints;
-        const deleteEndpoints = controller.deleteEndpoints;
-        const putEndpoints = controller.putEndpoints;
-        const headEndpoints = controller.headEndpoints;
-        const optionsEndpoints = controller.optionsEndpoints;
-        const patchEndpoints = controller.patchEndpoints;
+        Core.assertEndpoint(controller.constructor.prototype.path);
+        const basePath: string = controller.constructor.prototype.path;
+        const getEndpoints = controller.constructor.prototype.getEndpoints;
+        const postEndpoints = controller.constructor.prototype.postEndpoints;
+        const deleteEndpoints = controller.constructor.prototype.deleteEndpoints;
+        const putEndpoints = controller.constructor.prototype.putEndpoints;
+        const headEndpoints = controller.constructor.prototype.headEndpoints;
+        const optionsEndpoints = controller.constructor.prototype.optionsEndpoints;
+        const patchEndpoints = controller.constructor.prototype.patchEndpoints;
         if (getEndpoints) {
             Core.addGetEndpoints(basePath, router, controller, getEndpoints);
         }
