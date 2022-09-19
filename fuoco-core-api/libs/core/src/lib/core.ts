@@ -79,7 +79,7 @@ import { EndpointContext } from "./endpoint-context.ts";
             Core.addPatchEndpoints(basePath, router, controller, patchEndpoints);
         }
 
-        throw createError(404, controller.toString());
+        throw createError(404, JSON.stringify(controller));
       }
     }
 
