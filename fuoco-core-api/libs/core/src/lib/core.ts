@@ -1,9 +1,7 @@
 // deno-lint-ignore-file no-explicit-any ban-types ban-ts-comment no-unused-vars require-await ban-unused-ignore
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore
-import { ConnInfo, Handler } from "https://deno.land/std@0.131.0/http/server.ts";
-// @ts-ignore
-import * as Oak from "https://fuoco-appdev-oak-tyrek4b55ndg.deno.dev/mod.ts";
+import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
 // @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
   
@@ -19,17 +17,13 @@ import { EndpointContext } from "./endpoint-context.ts";
           ): Promise<unknown> => await handler.call(arg, ctx, next);
     }
 
-    public static registerHandler(controllers: object[]): Handler {
+    public static registerApp(controllers: object[]): Oak.Application {
         const app = new Oak.Application();
         const router = new Oak.Router();
         this.registerRouter(router, controllers);
         app.use(router.routes());
         app.use(router.allowedMethods());
-        const handler = async (request: Request, connInfo: ConnInfo) => {
-          // @ts-ignore
-          return await app.handle(request, connInfo as Deno.Conn);
-        };
-        return handler as Handler;
+        return app;
       }
   
     /**
