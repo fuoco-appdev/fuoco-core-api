@@ -3,7 +3,7 @@
 // @ts-ignore
 import { ConnInfo, Handler } from "https://deno.land/std@0.131.0/http/server.ts";
 // @ts-ignore
-import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
+import * as Oak from "https://fuoco-appdev-oak-9vd860m3x65g.deno.dev/mod.ts";
 // @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
   
@@ -93,7 +93,7 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx) => handler.call(controller, ctx.params, ctx),
+              (ctx: any) => handler.call(controller, ctx.params, ctx),
             );
             router.get(fullPath, wrapper);
         }
@@ -114,7 +114,7 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx) => handler.call(controller, ctx.params, ctx),
+              (ctx: any) => handler.call(controller, ctx.params, ctx),
             );
             router.post(fullPath, wrapper);
         }
@@ -135,7 +135,7 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx) => handler.call(controller, ctx.params, ctx),
+              (ctx: any) => handler.call(controller, ctx.params, ctx),
             );
             router.delete(fullPath, wrapper);
         }
@@ -156,7 +156,7 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx) => handler.call(controller, ctx.params, ctx),
+              (ctx: any) => handler.call(controller, ctx.params, ctx),
             );
             router.put(fullPath, wrapper);
         }
@@ -177,7 +177,7 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx) => handler.call(controller, ctx.params, ctx),
+              (ctx: any) => handler.call(controller, ctx.params, ctx),
             );
             router.head(fullPath, wrapper);
         }
@@ -198,7 +198,7 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx) => handler.call(controller, ctx.params, ctx),
+              (ctx: any) => handler.call(controller, ctx.params, ctx),
             );
             router.options(fullPath, wrapper);
         }
@@ -219,7 +219,7 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx) => handler.call(controller, ctx.params, ctx),
+              (ctx: any) => handler.call(controller, ctx.params, ctx),
             );
             router.patch(fullPath, wrapper);
         }
