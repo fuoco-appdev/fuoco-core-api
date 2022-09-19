@@ -6,7 +6,7 @@ export function Post(path: string) {
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      target.prototype.postEndpoints = target.prototype.postEndpoints || [];
+      target.prototype.postEndpoints = target.prototype["postEndpoints"] ?? [];
       target.prototype.postEndpoints.push({
           path,
           key,
