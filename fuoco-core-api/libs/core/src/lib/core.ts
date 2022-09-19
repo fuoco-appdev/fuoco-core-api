@@ -3,7 +3,7 @@
 // @ts-ignore
 import { ConnInfo, Handler } from "https://deno.land/std@0.131.0/http/server.ts";
 // @ts-ignore
-import * as Oak from "https://fuoco-appdev-oak-9vd860m3x65g.deno.dev/mod.ts";
+import * as Oak from "https://fuoco-appdev-oak-tyrek4b55ndg.deno.dev/mod.ts";
 // @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
   
