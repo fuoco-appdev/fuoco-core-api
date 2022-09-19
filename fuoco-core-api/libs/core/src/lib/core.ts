@@ -42,20 +42,19 @@ import { EndpointContext } from "./endpoint-context.ts";
       controllers: object[],
     ) {
       for (const controller of controllers) {
-        const basePath: string = Reflect.get(controller.constructor, "path");
-        Core.assertEndpoint(basePath);
-
-        if (!basePath) {
+        if (!controller.constructor.prototype.path) {
             throw new Error(`Controller ${controller.constructor.name} must have a @Controller() decorator!`);
         }
 
-        const getEndpoints = Reflect.get(controller.constructor, "getEndpoints");
-        const postEndpoints = Reflect.get(controller.constructor, "postEndpoints");
-        const deleteEndpoints = Reflect.get(controller.constructor, "deleteEndpoints");
-        const putEndpoints = Reflect.get(controller.constructor, "putEndpoints");
-        const headEndpoints = Reflect.get(controller.constructor, "headEndpoints");
-        const optionsEndpoints = Reflect.get(controller.constructor, "optionsEndpoints");
-        const patchEndpoints = Reflect.get(controller.constructor, "patchEndpoints");
+        Core.assertEndpoint(controller.constructor.prototype.path);
+        const basePath: string = controller.constructor.prototype.path;
+        const getEndpoints = controller.constructor.prototype.getEndpoints;
+        const postEndpoints = controller.constructor.prototype.postEndpoints;
+        const deleteEndpoints = controller.constructor.prototype.deleteEndpoints;
+        const putEndpoints = controller.constructor.prototype.putEndpoints;
+        const headEndpoints = controller.constructor.prototype.headEndpoints;
+        const optionsEndpoints = controller.constructor.prototype.optionsEndpoints;
+        const patchEndpoints = controller.constructor.prototype.patchEndpoints;
         if (getEndpoints) {
             Core.addGetEndpoints(basePath, router, controller, getEndpoints);
         }
@@ -78,8 +77,6 @@ import { EndpointContext } from "./endpoint-context.ts";
         if (patchEndpoints) {
             Core.addPatchEndpoints(basePath, router, controller, patchEndpoints);
         }
-
-        throw createError(404, controller.constructor.toString());
       }
     }
 
