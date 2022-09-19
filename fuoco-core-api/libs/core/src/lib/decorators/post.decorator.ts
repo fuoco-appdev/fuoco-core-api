@@ -6,8 +6,8 @@ export function Post(path: string) {
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      target.prototype.postEndpoints = target.prototype["postEndpoints"] ?? [];
-      target.prototype.postEndpoints.push({
+      target.__proto__.postEndpoints = target.__proto__.postEndpoints ?? [];
+      target.__proto__.postEndpoints.push({
           path,
           key,
           handler: descriptor.value,
