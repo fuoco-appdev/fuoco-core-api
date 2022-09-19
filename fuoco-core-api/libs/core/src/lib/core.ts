@@ -3,8 +3,6 @@
 // @ts-ignore
 import { ConnInfo, Handler } from "https://deno.land/std@0.131.0/http/server.ts";
 // @ts-ignore
-import { createError } from "https://deno.land/x/http_errors@3.0.0/mod.ts";
-// @ts-ignore
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
 // @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
@@ -48,7 +46,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         const basePath: string = controller.constructor.prototype.path;
         const getEndpoints = controller.constructor.prototype.getEndpoints;
         const postEndpoints = controller.constructor.prototype.postEndpoints;
-        throw createError(404, JSON.stringify(controller.constructor.prototype.postEndpoints));
+        throw new Error(JSON.stringify(controller.constructor.prototype.postEndpoints));
         /*const deleteEndpoints = controller.constructor.prototype.deleteEndpoints;
         const putEndpoints = controller.constructor.prototype.putEndpoints;
         const headEndpoints = controller.constructor.prototype.headEndpoints;
@@ -228,7 +226,7 @@ import { EndpointContext } from "./endpoint-context.ts";
 
     private static assertEndpoint(path: string | undefined): void {
       if (!path?.startsWith('/')) {
-        throw createError(404, `${path} must start with a '/'`);
+        throw new Error(`${path} must start with a '/'`);
       }
     }
   }
