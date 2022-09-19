@@ -25,10 +25,9 @@ import { EndpointContext } from "./endpoint-context.ts";
         this.registerRouter(router, controllers);
         app.use(router.routes());
         app.use(router.allowedMethods());
-        // @ts-ignore
         const handler = async (request: Request, conn: ConnInfo) => {
-          const denoConn = conn as Deno.Conn;
-          return await app.handle(request, denoConn, true);
+          // @ts-ignore
+          return await app.handle(request, conn as Deno.Conn, true);
         };
         return handler as Handler;
       }
