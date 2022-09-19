@@ -19,14 +19,17 @@ import { EndpointContext } from "./endpoint-context.ts";
           ): Promise<unknown> => await handler.call(arg, ctx, next);
     }
 
-    public static registerHandler(controllers: object[], remote: boolean): Handler {
+    public static registerHandler(controllers: object[]): Handler {
         const app = new Oak.Application();
         const router = new Oak.Router();
         this.registerRouter(router, controllers);
         app.use(router.routes());
         app.use(router.allowedMethods());
         // @ts-ignore
-        const handler = async (request: Request, conn: ConnInfo) => await app.handle(request, conn as Deno.Conn);
+        const handler = async (request: Request, conn: ConnInfo) => {
+          const denoConn = conn as Deno.Conn;
+          return await app.handle(request, denoConn);
+        };
         return handler as Handler;
       }
   
