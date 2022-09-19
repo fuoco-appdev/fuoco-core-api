@@ -38,25 +38,25 @@ import { EndpointContext } from "./endpoint-context.ts";
       controllers: object[],
     ) {
       for (const controller of controllers) {
-        if (!controller.constructor.prototype.path) {
+        const prototype = Object.getPrototypeOf(controller);
+        if (!prototype.path) {
             throw new Error(`Controller ${controller.constructor.name} must have a @Controller() decorator!`);
         }
 
-        Core.assertEndpoint(controller.constructor.prototype.path);
-        const basePath: string = controller.constructor.prototype.path;
-        const getEndpoints = controller.constructor.prototype.getEndpoints;
-        const postEndpoints = controller.constructor.prototype.postEndpoints;
-        throw new Error(`${JSON.stringify(controller)}`);
-        /*const deleteEndpoints = controller.constructor.prototype.deleteEndpoints;
-        const putEndpoints = controller.constructor.prototype.putEndpoints;
-        const headEndpoints = controller.constructor.prototype.headEndpoints;
-        const optionsEndpoints = controller.constructor.prototype.optionsEndpoints;
-        const patchEndpoints = controller.constructor.prototype.patchEndpoints;
+        Core.assertEndpoint(prototype.path);
+        const basePath: string = prototype.path;
+        const getEndpoints = prototype.getEndpoints;
+        const postEndpoints = prototype.postEndpoints;
+        const deleteEndpoints = prototype.deleteEndpoints;
+        const putEndpoints = prototype.putEndpoints;
+        const headEndpoints = prototype.headEndpoints;
+        const optionsEndpoints = prototype.optionsEndpoints;
+        const patchEndpoints = prototype.patchEndpoints;
         if (getEndpoints) {
             Core.addGetEndpoints(basePath, router, controller, getEndpoints);
         }
         if (postEndpoints) {
-            throw createError(404, "hit post");
+            throw new Error('Hit post');
             // Core.addPostEndpoints(basePath, router, controller, postEndpoints);
         }
         if (deleteEndpoints) {
@@ -73,7 +73,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         }
         if (patchEndpoints) {
             Core.addPatchEndpoints(basePath, router, controller, patchEndpoints);
-        } */
+        }
       }
     }
 
