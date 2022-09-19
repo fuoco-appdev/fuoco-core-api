@@ -6,8 +6,9 @@ export function Get(path: string) {
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      target.constructor.prototype.getEndpoints = target.constructor.prototype.getEndpoints || [];
-      target.constructor.prototype.getEndpoints.push({
+      const prototype = Object.getPrototypeOf(target);
+      prototype.getEndpoints = prototype.getEndpoints || [];
+      prototype.getEndpoints.push({
         path,
         key,
         handler: descriptor.value,

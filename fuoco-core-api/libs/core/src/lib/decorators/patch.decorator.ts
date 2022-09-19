@@ -6,8 +6,9 @@ export function Patch(path: string) {
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      target.constructor.prototype.patchEndpoints = target.constructor.prototype.patchEndpoints || [];
-      target.constructor.prototype.patchEndpoints.push({
+      const prototype = Object.getPrototypeOf(target);
+      prototype.patchEndpoints = prototype.patchEndpoints || [];
+      prototype.patchEndpoints.push({
         path,
         key,
         handler: descriptor.value,

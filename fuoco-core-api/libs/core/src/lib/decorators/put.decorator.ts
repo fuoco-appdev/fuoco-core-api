@@ -6,8 +6,9 @@ export function Put(path: string) {
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      target.constructor.prototype.putEndpoints = target.constructor.prototype.putEndpoints || [];
-      target.constructor.prototype.putEndpoints.push({
+      const prototype = Object.getPrototypeOf(target);
+      prototype.putEndpoints = prototype.putEndpoints || [];
+      prototype.putEndpoints.push({
         path,
         key,
         handler: descriptor.value,
