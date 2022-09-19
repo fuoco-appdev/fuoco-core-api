@@ -28,7 +28,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         // @ts-ignore
         const handler = async (request: Request, conn: ConnInfo) => {
           const denoConn = conn as Deno.Conn;
-          return await app.handle(request, denoConn);
+          return await app.handle(request, denoConn, true);
         };
         return handler as Handler;
       }
