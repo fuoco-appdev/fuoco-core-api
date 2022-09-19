@@ -1,4 +1,4 @@
-// deno-lint-ignore-file no-explicit-any no-unused-vars require-await
+// deno-lint-ignore-file no-explicit-any no-unused-vars require-await ban-unused-ignore
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function Post(path: string) {
     return function (
@@ -6,14 +6,11 @@ export function Post(path: string) {
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      descriptor.value = async function (...args: any) {
-        this.constructor.prototype.postEndpoints = this.constructor.prototype.postEndpoints || [];
-        this.constructor.prototype.postEndpoints.push({
+      target.constructor.prototype.postEndpoints = target.constructor.prototype.postEndpoints || [];
+      target.constructor.prototype.postEndpoints.push({
           path,
           key,
           handler: descriptor.value,
-        });
-      };
-      
+      });
     };
   }
