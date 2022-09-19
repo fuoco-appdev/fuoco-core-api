@@ -6,8 +6,8 @@ export function Post(path: string) {
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      target.constructor.prototype.postEndpoints = target.constructor.prototype.postEndpoints || [];
-      target.constructor.prototype.postEndpoints.push({
+      target.prototype.postEndpoints = target.prototype.postEndpoints || [];
+      target.prototype.postEndpoints.push({
           path,
           key,
           handler: descriptor.value,

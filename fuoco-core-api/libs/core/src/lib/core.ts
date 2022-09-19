@@ -46,7 +46,7 @@ import { EndpointContext } from "./endpoint-context.ts";
         const basePath: string = controller.constructor.prototype.path;
         const getEndpoints = controller.constructor.prototype.getEndpoints;
         const postEndpoints = controller.constructor.prototype.postEndpoints;
-        throw new Error(`${JSON.stringify(controller.constructor.prototype)}`);
+        throw new Error(`${JSON.stringify(controller)}`);
         /*const deleteEndpoints = controller.constructor.prototype.deleteEndpoints;
         const putEndpoints = controller.constructor.prototype.putEndpoints;
         const headEndpoints = controller.constructor.prototype.headEndpoints;
@@ -225,7 +225,7 @@ import { EndpointContext } from "./endpoint-context.ts";
     }
 
     private static assertEndpoint(path: string | undefined): void {
-      if (!path?.startsWith('/')) {
+      if (path && !path?.startsWith('/')) {
         throw new Error(`${path} must start with a '/'`);
       }
     }
