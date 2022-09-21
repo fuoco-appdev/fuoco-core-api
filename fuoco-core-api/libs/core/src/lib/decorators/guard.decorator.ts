@@ -13,6 +13,7 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
         key: string,
         descriptor: PropertyDescriptor,
       ) {
+        const method = target[key];
         const instance = new executer();
         instance.canExecuteAsync().then((canExecute: boolean) => {
           if (!canExecute) {
@@ -25,8 +26,8 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
             }
 
             const prototype = Object.getPrototypeOf(target);
-            if (prototype.endpoints[key]) {
-              prototype.endpoints[key]['handler'] = descriptor.value;
+            if (prototype.endpoints[method.name]) {
+              prototype.endpoints[method.name]['handler'] = descriptor.value;
             }
           }
         });
