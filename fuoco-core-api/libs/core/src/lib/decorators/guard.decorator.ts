@@ -26,7 +26,7 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
 
             const prototype = Object.getPrototypeOf(target);
             if (prototype.endpoints[key]) {
-              prototype.postEndpoints[key]['handler'] = descriptor.value;
+              prototype.endpoints[key]['handler'] = descriptor.value;
             }
           }
         });
