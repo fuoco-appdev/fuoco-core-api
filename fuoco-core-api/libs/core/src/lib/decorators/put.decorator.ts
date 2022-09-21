@@ -13,5 +13,7 @@ export function Put(path: string) {
         key,
         handler: descriptor.value,
       });
+
+      return target;
     };
   }

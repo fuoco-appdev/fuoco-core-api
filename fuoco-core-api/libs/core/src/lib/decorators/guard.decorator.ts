@@ -19,5 +19,7 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
             }
           }
         });
+        
+        return target;
       }
 }

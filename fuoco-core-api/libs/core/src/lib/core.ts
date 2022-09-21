@@ -94,9 +94,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   handler.call(controller, ctx);
                 }
                 catch(error: any) {
-                  if (error instanceof HttpError.HttpError) {
-                    ctx.response.body = error;
-                  }
+                  ctx.response.body = error;
                 }
               },
             );
@@ -124,9 +122,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   handler.call(controller, ctx);
                 }
                 catch(error: any) {
-                  if (error instanceof HttpError.HttpError) {
-                    ctx.response.body = error;
-                  }
+                  ctx.response.body = error;
                 }
               },
             );
@@ -154,9 +150,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   handler.call(controller, ctx);
                 }
                 catch(error: any) {
-                  if (error instanceof HttpError.HttpError) {
-                    ctx.response.body = error;
-                  }
+                  ctx.response.body = error;
                 }
               },
             );
@@ -184,9 +178,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   handler.call(controller, ctx);
                 }
                 catch(error: any) {
-                  if (error instanceof HttpError.HttpError) {
-                    ctx.response.body = error;
-                  }
+                  ctx.response.body = error;
                 }
               },
             );
@@ -214,9 +206,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   handler.call(controller, ctx);
                 }
                 catch(error: any) {
-                  if (error instanceof HttpError.HttpError) {
-                    ctx.response.body = error;
-                  }
+                  ctx.response.body = error;
                 }
               },
             );
@@ -244,9 +234,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   handler.call(controller, ctx);
                 }
                 catch(error: any) {
-                  if (error instanceof HttpError.HttpError) {
-                    ctx.response.body = error;
-                  }
+                  ctx.response.body = error;
                 }
               },
             );
@@ -274,9 +262,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   handler.call(controller, ctx);
                 }
                 catch(error: any) {
-                  if (error instanceof HttpError.HttpError) {
-                    ctx.response.body = error;
-                  }
+                  ctx.response.body = error;
                 }
               },
             );
