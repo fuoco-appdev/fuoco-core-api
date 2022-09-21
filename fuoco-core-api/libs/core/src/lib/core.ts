@@ -41,232 +41,55 @@ import { EndpointContext } from "./endpoint-context.ts";
 
         Core.assertEndpoint(prototype.path);
         const basePath: string = prototype.path;
-        const getEndpoints = prototype.getEndpoints;
-        const postEndpoints = prototype.postEndpoints;
-        const deleteEndpoints = prototype.deleteEndpoints;
-        const putEndpoints = prototype.putEndpoints;
-        const headEndpoints = prototype.headEndpoints;
-        const optionsEndpoints = prototype.optionsEndpoints;
-        const patchEndpoints = prototype.patchEndpoints;
-        if (getEndpoints) {
-            Core.addGetEndpoints(basePath, router, controller, getEndpoints);
-        }
-        if (postEndpoints) {
-            Core.addPostEndpoints(basePath, router, controller, postEndpoints);
-        }
-        if (deleteEndpoints) {
-            Core.addDeleteEndpoints(basePath, router, controller, deleteEndpoints);
-        }
-        if (putEndpoints) {
-            Core.addPutEndpoints(basePath, router, controller, putEndpoints);
-        }
-        if (headEndpoints) {
-            Core.addHeadEndpoints(basePath, router, controller, headEndpoints);
-        }
-        if (optionsEndpoints) {
-            Core.addOptionsEndpoints(basePath, router, controller, optionsEndpoints);
-        }
-        if (patchEndpoints) {
-            Core.addPatchEndpoints(basePath, router, controller, patchEndpoints);
+        const endpoints = prototype.endpoints as Record<string, EndpointContext>;
+        if (endpoints) {
+            for (const key in endpoints) {
+              const endpoint = endpoints[key];
+              Core.assertEndpoint(endpoint.path);
+              const fullPath = basePath + endpoint.path;
+              const handler = endpoint.handler as ((ctx: Oak.RouterContext<
+                  string,
+                  Oak.RouteParams<string>,
+                  Record<string | number, string | undefined>
+                >) => void);
+              const wrapper = Core.endpointHandler(
+                controller,
+                (ctx: any) => {
+                  try {
+                    handler.call(controller, ctx);
+                  }
+                  catch(error: any) {
+                    ctx.response.body = error;
+                  }
+                },
+              );
+
+              switch (endpoint.type) {
+                case 'delete':
+                  router.delete(fullPath, wrapper);
+                  break;
+                case 'get':
+                  router.get(fullPath, wrapper);
+                  break;
+                case 'head':
+                  router.head(fullPath, wrapper);
+                  break;
+                case 'options':
+                  router.options(fullPath, wrapper);
+                  break;
+                case 'patch':
+                  router.patch(fullPath, wrapper);
+                  break;
+                case 'post':
+                  router.post(fullPath, wrapper);
+                  break;
+                case 'put':
+                  router.put(fullPath, wrapper);
+                  break;
+              }
+          }
         }
       }
-    }
-
-    private static addGetEndpoints(
-        basePath: string,
-        router: Oak.Router<Record<string, any>>,
-        controller: object,
-        endpoints: EndpointContext[]) {
-        for (const endpoint of endpoints) {
-            Core.assertEndpoint(endpoint.path);
-            const fullPath = basePath + endpoint.path;
-            const handler = endpoint.handler as ((ctx: Oak.RouterContext<
-                string,
-                Oak.RouteParams<string>,
-                Record<string | number, string | undefined>
-              >) => void);
-            const wrapper = Core.endpointHandler(
-              controller,
-              (ctx: any) => {
-                try {
-                  handler.call(controller, ctx);
-                }
-                catch(error: any) {
-                  ctx.response.body = error;
-                }
-              },
-            );
-            router.get(fullPath, wrapper);
-        }
-    }
-
-    private static addPostEndpoints(
-        basePath: string,
-        router: Oak.Router<Record<string, any>>,
-        controller: object,
-        endpoints: EndpointContext[]) {
-        for (const key in endpoints) {
-            const endpoint = endpoints[key];
-            Core.assertEndpoint(endpoint.path);
-            const fullPath = basePath + endpoint.path;
-            const handler = endpoint.handler as ((ctx: Oak.RouterContext<
-                string,
-                Oak.RouteParams<string>,
-                Record<string | number, string | undefined>
-              >) => void);
-            const wrapper = Core.endpointHandler(
-              controller,
-              (ctx: any) => {
-                try {
-                  handler.call(controller, ctx);
-                }
-                catch(error: any) {
-                  ctx.response.body = error;
-                }
-              },
-            );
-            router.post(fullPath, wrapper);
-        }
-    }
-
-    private static addDeleteEndpoints(
-        basePath: string,
-        router: Oak.Router<Record<string, any>>,
-        controller: object,
-        endpoints: EndpointContext[]) {
-        for (const endpoint of endpoints) {
-            Core.assertEndpoint(endpoint.path);
-            const fullPath = basePath + endpoint.path;
-            const handler = endpoint.handler as ((ctx: Oak.RouterContext<
-                string,
-                Oak.RouteParams<string>,
-                Record<string | number, string | undefined>
-              >) => void);
-            const wrapper = Core.endpointHandler(
-              controller,
-              (ctx: any) => {
-                try {
-                  handler.call(controller, ctx);
-                }
-                catch(error: any) {
-                  ctx.response.body = error;
-                }
-              },
-            );
-            router.delete(fullPath, wrapper);
-        }
-    }
-
-    private static addPutEndpoints(
-        basePath: string,
-        router: Oak.Router<Record<string, any>>,
-        controller: object,
-        endpoints: EndpointContext[]) {
-        for (const endpoint of endpoints) {
-            Core.assertEndpoint(endpoint.path);
-            const fullPath = basePath + endpoint.path;
-            const handler = endpoint.handler as ((ctx: Oak.RouterContext<
-                string,
-                Oak.RouteParams<string>,
-                Record<string | number, string | undefined>
-              >) => void);
-            const wrapper = Core.endpointHandler(
-              controller,
-              (ctx: any) => {
-                try {
-                  handler.call(controller, ctx);
-                }
-                catch(error: any) {
-                  ctx.response.body = error;
-                }
-              },
-            );
-            router.put(fullPath, wrapper);
-        }
-    }
-
-    private static addHeadEndpoints(
-        basePath: string,
-        router: Oak.Router<Record<string, any>>,
-        controller: object,
-        endpoints: EndpointContext[]) {
-        for (const endpoint of endpoints) {
-            Core.assertEndpoint(endpoint.path);
-            const fullPath = basePath + endpoint.path;
-            const handler = endpoint.handler as ((ctx: Oak.RouterContext<
-                string,
-                Oak.RouteParams<string>,
-                Record<string | number, string | undefined>
-              >) => void);
-            const wrapper = Core.endpointHandler(
-              controller,
-              (ctx: any) => {
-                try {
-                  handler.call(controller, ctx);
-                }
-                catch(error: any) {
-                  ctx.response.body = error;
-                }
-              },
-            );
-            router.head(fullPath, wrapper);
-        }
-    }
-
-    private static addOptionsEndpoints(
-        basePath: string,
-        router: Oak.Router<Record<string, any>>,
-        controller: object,
-        endpoints: EndpointContext[]) {
-        for (const endpoint of endpoints) {
-            Core.assertEndpoint(endpoint.path);
-            const fullPath = basePath + endpoint.path;
-            const handler = endpoint.handler as ((ctx: Oak.RouterContext<
-                string,
-                Oak.RouteParams<string>,
-                Record<string | number, string | undefined>
-              >) => void);
-            const wrapper = Core.endpointHandler(
-              controller,
-              (ctx: any) => {
-                try {
-                  handler.call(controller, ctx);
-                }
-                catch(error: any) {
-                  ctx.response.body = error;
-                }
-              },
-            );
-            router.options(fullPath, wrapper);
-        }
-    }
-
-    private static addPatchEndpoints(
-        basePath: string,
-        router: Oak.Router<Record<string, any>>,
-        controller: object,
-        endpoints: EndpointContext[]) {
-        for (const endpoint of endpoints) {
-            Core.assertEndpoint(endpoint.path);
-            const fullPath = basePath + endpoint.path;
-            const handler = endpoint.handler as ((ctx: Oak.RouterContext<
-                string,
-                Oak.RouteParams<string>,
-                Record<string | number, string | undefined>
-              >) => void);
-            const wrapper = Core.endpointHandler(
-              controller,
-              (ctx: any) => {
-                try {
-                  handler.call(controller, ctx);
-                }
-                catch(error: any) {
-                  ctx.response.body = error;
-                }
-              },
-            );
-            router.patch(fullPath, wrapper);
-        }
     }
 
     private static assertEndpoint(path: string | undefined): void {

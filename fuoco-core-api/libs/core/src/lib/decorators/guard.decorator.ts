@@ -23,11 +23,12 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
             >) {
               ctx.response.body = HttpError.createError(401, 'Not authorized!');
             }
+
+            const prototype = Object.getPrototypeOf(target);
+            if (prototype.endpoints[key]) {
+              prototype.postEndpoints[key]['handler'] = descriptor.value;
+            }
           }
         });
-        
-        const prototype = Object.getPrototypeOf(target);
-        prototype.postEndpoints = prototype.postEndpoints ?? {};
-        prototype.postEndpoints[key].handler = descriptor.value;
       }
 }
