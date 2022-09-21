@@ -8,7 +8,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
 import { GuardExecuter } from "../guard-executer.ts";
 
 export function Post(path: string) {
-    return async function (
+    return function (
       target: Record<string, any>,
       key: string,
       descriptor: PropertyDescriptor,
