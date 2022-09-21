@@ -4,6 +4,8 @@
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
 // @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
+// @ts-ignore
+import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
   
   export class Core {
     private static endpointHandler<
@@ -87,7 +89,16 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx: any) => handler.call(controller, ctx),
+              (ctx: any) => {
+                try {
+                  handler.call(controller, ctx);
+                }
+                catch(error: any) {
+                  if (error instanceof HttpError.HttpError) {
+                    ctx.response.body = error;
+                  }
+                }
+              },
             );
             router.get(fullPath, wrapper);
         }
@@ -108,7 +119,16 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx: any) => handler.call(controller, ctx),
+              (ctx: any) => {
+                try {
+                  handler.call(controller, ctx);
+                }
+                catch(error: any) {
+                  if (error instanceof HttpError.HttpError) {
+                    ctx.response.body = error;
+                  }
+                }
+              },
             );
             router.post(fullPath, wrapper);
         }
@@ -129,7 +149,16 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx: any) => handler.call(controller, ctx),
+              (ctx: any) => {
+                try {
+                  handler.call(controller, ctx);
+                }
+                catch(error: any) {
+                  if (error instanceof HttpError.HttpError) {
+                    ctx.response.body = error;
+                  }
+                }
+              },
             );
             router.delete(fullPath, wrapper);
         }
@@ -150,7 +179,16 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx: any) => handler.call(controller, ctx),
+              (ctx: any) => {
+                try {
+                  handler.call(controller, ctx);
+                }
+                catch(error: any) {
+                  if (error instanceof HttpError.HttpError) {
+                    ctx.response.body = error;
+                  }
+                }
+              },
             );
             router.put(fullPath, wrapper);
         }
@@ -171,7 +209,16 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx: any) => handler.call(controller, ctx),
+              (ctx: any) => {
+                try {
+                  handler.call(controller, ctx);
+                }
+                catch(error: any) {
+                  if (error instanceof HttpError.HttpError) {
+                    ctx.response.body = error;
+                  }
+                }
+              },
             );
             router.head(fullPath, wrapper);
         }
@@ -192,7 +239,16 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx: any) => handler.call(controller, ctx),
+              (ctx: any) => {
+                try {
+                  handler.call(controller, ctx);
+                }
+                catch(error: any) {
+                  if (error instanceof HttpError.HttpError) {
+                    ctx.response.body = error;
+                  }
+                }
+              },
             );
             router.options(fullPath, wrapper);
         }
@@ -213,7 +269,16 @@ import { EndpointContext } from "./endpoint-context.ts";
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx: any) => handler.call(controller, ctx),
+              (ctx: any) => {
+                try {
+                  handler.call(controller, ctx);
+                }
+                catch(error: any) {
+                  if (error instanceof HttpError.HttpError) {
+                    ctx.response.body = error;
+                  }
+                }
+              },
             );
             router.patch(fullPath, wrapper);
         }
