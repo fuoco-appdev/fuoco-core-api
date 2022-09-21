@@ -101,14 +101,14 @@ import { EndpointContext } from "./endpoint-context.ts";
         for (const endpoint of endpoints) {
             Core.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
-            const handler = endpoint.handler as ((params: Oak.RouteParams<string>, ctx: Oak.RouterContext<
+            const handler = endpoint.handler as ((ctx: Oak.RouterContext<
                 string,
                 Oak.RouteParams<string>,
                 Record<string | number, string | undefined>
               >) => void);
             const wrapper = Core.endpointHandler(
               controller,
-              (ctx: any) => handler.call(controller, ctx.params, ctx),
+              (ctx: any) => handler.call(controller, ctx),
             );
             router.post(fullPath, wrapper);
         }
