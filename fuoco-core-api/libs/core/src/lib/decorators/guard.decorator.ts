@@ -11,11 +11,9 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
         key: string,
         descriptor: PropertyDescriptor,
       ) {
-        const method = descriptor.value;
         const instance = new executer();
-        descriptor.value = async function (...args: any) {
-            if (await !instance.canExecuteAsync()) throw HttpError.createError(401, 'Not authorized!');
-            return target;
-        };
+        instance.canExecuteAsync().then(() => {
+          throw HttpError.createError(401, 'Not authorized!');
+        });
       }
 }
