@@ -4,6 +4,8 @@
 import { GuardExecuter } from "../guard-executer.ts";
 // @ts-ignore
 import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
+// @ts-ignore
+import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
 
 export function Guard<T extends typeof GuardExecuter>(executer: T) {
     return function (
@@ -14,8 +16,12 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
         const instance = new executer();
         instance.canExecuteAsync().then((canExecute: boolean) => {
           if (!canExecute) {
-            descriptor.value = function(...args: any) {
-              throw HttpError.createError(401, 'Not authorized!');
+            descriptor.value = function(ctx: Oak.RouterContext<
+              string,
+              Oak.RouteParams<string>,
+              Record<string | number, string | undefined>
+            >) {
+              ctx.response.body = HttpError.createError(401, 'Not authorized!');
             }
           }
         });

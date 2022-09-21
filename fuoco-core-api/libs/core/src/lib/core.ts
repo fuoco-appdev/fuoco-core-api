@@ -4,8 +4,6 @@
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
 // @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
-// @ts-ignore
-import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
   
   export class Core {
     private static endpointHandler<
