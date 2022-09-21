@@ -14,11 +14,11 @@ export function Post(path: string) {
       descriptor: PropertyDescriptor,
     ) {
       const prototype = Object.getPrototypeOf(target);
-      prototype.postEndpoints = prototype.postEndpoints ?? [];
-      prototype.postEndpoints.push({
-          path,
-          key,
-          handler: descriptor.value,
-      });
+      prototype.postEndpoints = prototype.postEndpoints ?? {};
+      prototype.postEndpoints[key] = {
+        path,
+        key,
+        handler: descriptor.value,
+      };
     };
   }

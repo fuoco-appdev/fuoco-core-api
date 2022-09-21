@@ -105,7 +105,8 @@ import { EndpointContext } from "./endpoint-context.ts";
         router: Oak.Router<Record<string, any>>,
         controller: object,
         endpoints: EndpointContext[]) {
-        for (const endpoint of endpoints) {
+        for (const key in endpoints) {
+            const endpoint = endpoints[key];
             Core.assertEndpoint(endpoint.path);
             const fullPath = basePath + endpoint.path;
             const handler = endpoint.handler as ((ctx: Oak.RouterContext<

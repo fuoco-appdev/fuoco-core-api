@@ -25,5 +25,9 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
             }
           }
         });
+        
+        const prototype = Object.getPrototypeOf(target);
+        prototype.postEndpoints = prototype.postEndpoints ?? {};
+        prototype.postEndpoints[key].handler = descriptor.value;
       }
 }
