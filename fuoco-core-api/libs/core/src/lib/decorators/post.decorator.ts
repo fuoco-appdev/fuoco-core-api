@@ -9,10 +9,9 @@ export function Post(path: string) {
       key: string,
       descriptor: PropertyDescriptor,
     ) {
-      const method = target[key];
       const prototype = Object.getPrototypeOf(target);
       prototype.endpoints = prototype.endpoints ?? {} as Record<string, EndpointContext>;
-      prototype.endpoints[method.name] = {
+      prototype.endpoints[key] = {
         type: 'post',
         path: path,
         key: key,

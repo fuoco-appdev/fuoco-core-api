@@ -6,6 +6,7 @@ import { GuardExecuter } from "../guard-executer.ts";
 import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
 // @ts-ignore
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
+import { EndpointContext } from "../endpoint-context.ts";
 
 export function Guard<T extends typeof GuardExecuter>(executer: T) {
     return function (
@@ -13,7 +14,6 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
         key: string,
         descriptor: PropertyDescriptor,
       ) {
-        const method = target[key];
         const instance = new executer();
         instance.canExecuteAsync().then((canExecute: boolean) => {
           if (!canExecute) {
@@ -26,8 +26,12 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
             }
 
             const prototype = Object.getPrototypeOf(target);
-            if (prototype.endpoints[method.name]) {
-              prototype.endpoints[method.name]['handler'] = descriptor.value;
+            const endpoint  = prototype.endpoints[key] as EndpointContext;
+            if (endpoint) {
+              endpoint.handler = descriptor.value;
+            }
+            else {
+              throw new Error(`Endpoint with key ${key} does not exist`);
             }
           }
         });
