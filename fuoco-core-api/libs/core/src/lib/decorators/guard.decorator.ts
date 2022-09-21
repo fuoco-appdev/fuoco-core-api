@@ -12,14 +12,12 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
         descriptor: PropertyDescriptor,
       ) {
         const instance = new executer();
-        descriptor.value = function(...args: any) {
-          instance.canExecuteAsync().then((canExecute: boolean) => {
-            if (!canExecute) {
+        instance.canExecuteAsync().then((canExecute: boolean) => {
+          if (!canExecute) {
+            descriptor.value = function(...args: any) {
               throw HttpError.createError(401, 'Not authorized!');
             }
-          });
-        }
-
-        return target;
+          }
+        });
       }
 }
