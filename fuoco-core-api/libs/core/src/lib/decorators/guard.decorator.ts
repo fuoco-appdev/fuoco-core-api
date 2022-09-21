@@ -17,5 +17,7 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
             throw HttpError.createError(401, 'Not authorized!');
           });
         }
+
+        return target;
       }
 }
