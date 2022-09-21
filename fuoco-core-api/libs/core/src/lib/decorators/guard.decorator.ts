@@ -23,10 +23,6 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
           >) {
             ctx.response.body = HttpError.createError(401, 'Not authorized!');
           }
-
-          return descriptor;
         }
-
-        return target;
       }
 }

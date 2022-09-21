@@ -13,7 +13,5 @@ export function Head(path: string) {
         key,
         handler: descriptor.value,
       });
-
-      return target;
     };
   }

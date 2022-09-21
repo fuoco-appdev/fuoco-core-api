@@ -13,7 +13,5 @@ export function Delete(path: string) {
         key,
         handler: descriptor.value,
       });
-
-      return target;
     };
   }

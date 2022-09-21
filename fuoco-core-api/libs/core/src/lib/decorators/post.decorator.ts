@@ -20,7 +20,5 @@ export function Post(path: string) {
           key,
           handler: descriptor.value,
       });
-
-      return target;
     };
   }

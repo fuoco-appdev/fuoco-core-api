@@ -13,7 +13,5 @@ export function Get(path: string) {
         key,
         handler: descriptor.value,
       });
-
-      return target;
     };
   }

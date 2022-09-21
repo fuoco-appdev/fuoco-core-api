@@ -13,7 +13,5 @@ export function Patch(path: string) {
         key,
         handler: descriptor.value,
       });
-
-      return target;
     };
   }
