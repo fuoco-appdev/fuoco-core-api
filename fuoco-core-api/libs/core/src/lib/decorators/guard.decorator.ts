@@ -32,12 +32,13 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
         }
 
         const prototype = Object.getPrototypeOf(target);
-        const endpoint  = prototype.endpoints[key] as EndpointContext;
-        if (endpoint) {
-          endpoint.handler = descriptor.value;
-        }
-        else {
-          throw new Error(`Endpoint with key ${key} does not exist`);
+        if (prototype.endpoints) {
+          try {
+            prototype.endpoints[key].handler = descriptor.value;
+          }
+          catch(error: any) {
+            throw error;
+          }
         }
       }
 }
