@@ -15,25 +15,29 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
         key: string,
         descriptor: PropertyDescriptor,
       ) {
-        const instance = new executer();
-        const canExecute = instance.canExecuteAsync();
-        if (!canExecute) {
-          descriptor.value = function(ctx: Oak.RouterContext<
-            string,
-            Oak.RouteParams<string>,
-            Record<string | number, string | undefined>
-          >) {
-            ctx.response.body = HttpError.createError(401, 'Not authorized!');
-          }
-
-          const prototype = Object.getPrototypeOf(target);
-          const endpoint  = prototype.endpoints[key] as EndpointContext;
-          if (endpoint) {
-            endpoint.handler = descriptor.value;
+        const method = descriptor.value;
+        descriptor.value = function(ctx: Oak.RouterContext<
+          string,
+          Oak.RouteParams<string>,
+          Record<string | number, string | undefined>
+        >) {
+          const instance = new executer();
+          const canExecute = instance.canExecute(ctx);
+          if (canExecute) {
+            method.apply(target, ctx);
           }
           else {
-            throw new Error(`Endpoint with key ${key} does not exist`);
+            ctx.response.body = HttpError.createError(401, 'Not authorized!');
           }
+        }
+
+        const prototype = Object.getPrototypeOf(target);
+        const endpoint  = prototype.endpoints[key] as EndpointContext;
+        if (endpoint) {
+          endpoint.handler = descriptor.value;
+        }
+        else {
+          throw new Error(`Endpoint with key ${key} does not exist`);
         }
       }
 }
