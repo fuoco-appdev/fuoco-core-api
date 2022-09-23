@@ -33,11 +33,8 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
 
         const prototype = Object.getPrototypeOf(target);
         if (prototype.endpoints) {
-          try {
+          if (prototype.endpoints[key]) {
             prototype.endpoints[key].handler = descriptor.value;
-          }
-          catch(error: any) {
-            throw error;
           }
         }
       }
