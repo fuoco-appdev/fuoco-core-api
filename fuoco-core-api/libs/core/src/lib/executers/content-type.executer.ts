@@ -16,7 +16,7 @@ export class ContentTypeExecuter extends Executer {
         return this._contentType;
     }
 
-    public override canExecute(ctx: Oak.RouterContext<
+    public canExecute(ctx: Oak.RouterContext<
         string,
         Oak.RouteParams<string>,
         Record<string | number, string | undefined>
