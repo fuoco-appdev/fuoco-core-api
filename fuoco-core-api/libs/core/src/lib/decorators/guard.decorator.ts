@@ -13,11 +13,9 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
       ) {
         const instance = new executer();
         const prototype = Object.getPrototypeOf(target);
-        if (prototype.endpoints) {
-          if (prototype.endpoints[key]) {
-            prototype.endpoints[key].guards = prototype.endpoints[key].guards ?? [] as GuardExecuter[];
-            (prototype.endpoints[key] as EndpointContext).guards.push(instance);
-          }
-        }
+        prototype.endpoints = prototype.endpoints ?? {} as Record<string, EndpointContext>;
+        prototype.endpoints[key] = prototype.endpoints[key] ?? {};
+        prototype.endpoints[key].guards = prototype.endpoints[key].guards ?? [];
+        prototype.endpoints[key].guards.push(instance);
       }
 }
