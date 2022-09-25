@@ -4,6 +4,8 @@
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
 // @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
+// @ts-ignore
+import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
   
   export class Core {
     private static endpointHandler<
@@ -54,7 +56,18 @@ import { EndpointContext } from "./endpoint-context.ts";
                 >) => void);
               const wrapper = Core.endpointHandler(
                 controller,
-                (ctx: any) => {
+                (ctx: Oak.RouterContext<
+                  string,
+                  Oak.RouteParams<string>,
+                  Record<string | number, string | undefined>
+                >) => {
+                  for (const guard of endpoint.guards) {
+                    if (!guard.canExecute(ctx)) {
+                      ctx.response.body = HttpError.createError(401, 'Not authorized!');
+                      return;
+                    }
+                  }
+
                   try {
                     handler.call(controller, ctx);
                   }

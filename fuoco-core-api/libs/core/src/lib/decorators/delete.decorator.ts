@@ -16,6 +16,7 @@ export function Delete(path: string) {
         path: path,
         key: key,
         handler: descriptor.value,
+        guards: []
       };
     };
   }
