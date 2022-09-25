@@ -16,7 +16,7 @@ export function Head(path: string) {
         path: path,
         key: key,
         handler: descriptor.value,
-        guards: []
+        ...prototype.endpoints[key] ?? {}
       };
     };
   }
