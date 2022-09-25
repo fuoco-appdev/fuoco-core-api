@@ -15,7 +15,7 @@ export class ContentTypeExecuter extends Executer {
     }
 
     public get contextContentType(): string {
-        return this._contentType;
+        return this._contextContentType;
     }
 
     public canExecute(ctx: Oak.RouterContext<
