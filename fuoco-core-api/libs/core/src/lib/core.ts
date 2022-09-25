@@ -61,9 +61,18 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   Oak.RouteParams<string>,
                   Record<string | number, string | undefined>
                 >) => {
-                  for (const guard of endpoint.guards) {
-                    if (!guard.canExecute(ctx)) {
-                      ctx.response.body = HttpError.createError(401, 'Not authorized!');
+                  if (endpoint.guards) {
+                    for (const guard of endpoint.guards) {
+                      if (!guard.canExecute(ctx)) {
+                        ctx.response.body = HttpError.createError(401, 'Not authorized!');
+                        return;
+                      }
+                    }
+                  }
+
+                  if (endpoint.contentType) {
+                    if (!endpoint.contentType.canExecute(ctx)) {
+                      ctx.response.body = HttpError.createError(415, `Invalid content type: ${endpoint.contentType.contentType}`);
                       return;
                     }
                   }

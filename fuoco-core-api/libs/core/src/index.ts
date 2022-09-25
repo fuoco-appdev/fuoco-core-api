@@ -6,4 +6,6 @@ export * from './lib/endpoint-context.ts';
 // @ts-ignore
 export * from './lib/decorators/index.ts';
 // @ts-ignore
-export * from './lib/guard-executer.ts';
+export * from './lib/executer.ts';
+// @ts-ignore
+export * from './lib/executers/index.ts';

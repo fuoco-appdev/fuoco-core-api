@@ -1,5 +1,7 @@
 // deno-lint-ignore-file ban-ts-comment
 // @ts-ignore
+export * from './content-type.decorator.ts';
+// @ts-ignore
 export * from './controller.decorator.ts';
 // @ts-ignore
 export * from './delete.decorator.ts';

@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-explicit-any ban-ts-comment
 // @ts-ignore
-import { GuardExecuter } from "./guard-executer.ts";
+import { GuardExecuter, ContentTypeExecuter } from "./executers/index.ts";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface EndpointContext {
@@ -8,5 +8,6 @@ export interface EndpointContext {
     path: string;
     key: string;
     handler: any;
-    guards: GuardExecuter[];
+    guards?: GuardExecuter[];
+    contentType?: ContentTypeExecuter;
 }

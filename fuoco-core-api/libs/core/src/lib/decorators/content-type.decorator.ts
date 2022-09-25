@@ -1,21 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // deno-lint-ignore-file no-explicit-any no-unused-vars ban-ts-comment ban-unused-ignore
 // @ts-ignore
-import { GuardExecuter } from "../executers/index.ts";
+import { ContentTypeExecuter } from "../executers/index.ts";
 // @ts-ignore
 import { EndpointContext } from "../endpoint-context.ts";
 
-export function Guard<T extends typeof GuardExecuter>(executer: T) {
+export function ContentType(contentType: string) {
     return function (
         target: Record<string, any>,
         key: string,
         descriptor: PropertyDescriptor,
       ) {
-        const instance = new executer();
+        const instance = new ContentTypeExecuter(contentType);
         const prototype = Object.getPrototypeOf(target);
         prototype.endpoints = prototype.endpoints ?? {} as Record<string, EndpointContext>;
         prototype.endpoints[key] = prototype.endpoints[key] ?? {};
-        prototype.endpoints[key].guards = prototype.endpoints[key].guards ?? [];
-        prototype.endpoints[key].guards.push(instance);
+        prototype.endpoints[key].contentType = instance;
       }
 }
