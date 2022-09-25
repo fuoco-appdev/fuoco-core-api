@@ -24,7 +24,7 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
           const instance = new executer();
           const canExecute = instance.canExecute(ctx);
           if (canExecute) {
-            method.apply(target, ctx);
+            descriptor.value = method;
           }
           else {
             ctx.response.body = HttpError.createError(401, 'Not authorized!');
