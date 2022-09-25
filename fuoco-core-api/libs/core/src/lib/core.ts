@@ -72,7 +72,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
 
                   if (endpoint.contentType) {
                     if (!endpoint.contentType.canExecute(ctx)) {
-                      ctx.response.body = HttpError.createError(415, `Invalid content type: ${endpoint.contentType.contentType}`);
+                      ctx.response.body = HttpError.createError(415, `Invalid content type: ${endpoint.contentType.contextContentType}`);
                       return;
                     }
                   }

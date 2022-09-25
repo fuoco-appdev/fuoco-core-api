@@ -6,13 +6,15 @@ import { Executer } from "../executer.ts";
 
 export class ContentTypeExecuter extends Executer {
     private readonly _contentType: string;
+    private _contextContentType: string;
 
     constructor(contentType: string) {
         super();
         this._contentType = contentType;
+        this._contextContentType = "";
     }
 
-    public get contentType(): string {
+    public get contextContentType(): string {
         return this._contentType;
     }
 
@@ -22,7 +24,8 @@ export class ContentTypeExecuter extends Executer {
         Record<string | number, string | undefined>
       >): boolean {
         if (ctx.request.headers.has("content-type")) {
-            return ctx.request.headers.get("content-type") === this._contentType;
+            this._contextContentType = ctx.request.headers.get("content-type") ?? "";
+            return this._contextContentType === this._contentType;
         }
 
         return false;
