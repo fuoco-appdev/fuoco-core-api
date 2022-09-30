@@ -36,14 +36,13 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
       controllers: object[],
     ) {
       for (const controller of controllers) {
-        const prototype = Object.getPrototypeOf(controller);
-        if (!prototype.path) {
+        if (!controller.constructor.prototype.path) {
             throw new Error(`Controller ${controller.constructor.name} must have a @Controller() decorator!`);
         }
 
-        Core.assertEndpoint(prototype.path);
-        const basePath: string = prototype.path;
-        const endpoints = prototype.endpoints as Record<string, EndpointContext>;
+        Core.assertEndpoint(controller.constructor.prototype.path);
+        const basePath: string = controller.constructor.prototype.constructor.path;
+        const endpoints = controller.constructor.prototype.endpoints as Record<string, EndpointContext>;
         if (endpoints) {
             for (const key in endpoints) {
               const endpoint = endpoints[key];
