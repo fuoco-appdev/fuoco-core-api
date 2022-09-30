@@ -1,8 +1,9 @@
 // deno-lint-ignore-file ban-types
 
 export function Controller(path: string) {
-    return function(constructor: Function) {
-      const prototype = Object.getPrototypeOf(constructor);
-      prototype.path = path;
+    return function<T extends { new (...args: any[]): {} }>(constructor: T) {
+      return class extends constructor {
+        path = path;
+      };
     };
 }
