@@ -37,7 +37,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
     ) {
       for (const controller of controllers) {
         const prototype = Object.getPrototypeOf(controller.constructor);
-        console.log(prototype);
+        console.log(controller);
         if (!prototype.path) {
             throw new Error(`Controller ${controller.constructor.name} must have a @Controller() decorator!`);
         }
