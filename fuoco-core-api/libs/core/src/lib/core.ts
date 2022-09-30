@@ -33,16 +33,19 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
      */
     private static registerRouter(
       router: Oak.Router<Record<string, any>>,
-      controllers: object[],
+      controllers: any[],
     ) {
       for (const controller of controllers) {
         const prototype = Object.getPrototypeOf(controller);
-        if (!prototype.path) {
+        const path = controller.path;
+        console.log(controller);
+        console.log(prototype);
+        if (!path) {
             throw new Error(`Controller ${controller.constructor.name} must have a @Controller() decorator!`);
         }
 
-        Core.assertEndpoint(prototype.path);
-        const basePath: string = prototype.path;
+        Core.assertEndpoint(path);
+        const basePath: string = path;
         const endpoints = prototype.endpoints as Record<string, EndpointContext>;
         if (endpoints) {
             for (const key in endpoints) {
