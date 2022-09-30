@@ -1,8 +1,8 @@
-// deno-lint-ignore-file no-explicit-any ban-types
+// deno-lint-ignore-file ban-types
 
 export function Controller(path: string) {
-    return function (target: new (...args: any[]) => object) {
-      const prototype = Object.getPrototypeOf(target);
+    return function(constructor: Function) {
+      const prototype = Object.getPrototypeOf(constructor);
       prototype.path = path;
     };
 }
