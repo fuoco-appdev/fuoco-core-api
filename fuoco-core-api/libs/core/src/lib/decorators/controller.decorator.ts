@@ -2,7 +2,6 @@
 
 export function Controller(path: string) {
     return function (target: new (...args: any[]) => object) {
-      const prototype = Object.getPrototypeOf(target);
-      prototype.path = path;
+      target.constructor.prototype.path = path;
     };
 }
