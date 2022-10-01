@@ -3,6 +3,8 @@
 // @ts-ignore
 import * as Oak from "https://deno.land/x/oak@v11.1.0/mod.ts";
 // @ts-ignore
+import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
+// @ts-ignore
 import { EndpointContext } from "./endpoint-context.ts";
 // @ts-ignore
 import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
@@ -21,10 +23,14 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
 
     public static registerApp(controllers: object[]): Oak.Application {
         const app = new Oak.Application();
+        app.use(oakCors());
+
         const router = new Oak.Router();
         this.registerRouter(router, controllers);
+
         app.use(router.routes());
         app.use(router.allowedMethods());
+        
         return app;
       }
   
