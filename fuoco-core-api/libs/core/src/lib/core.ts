@@ -77,15 +77,15 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   }
 
                   if (endpoint.contentType) {
+                    console.log(endpoint.contentType);
                     if (!endpoint.contentType.canExecute(ctx)) {
+                      console.log(ctx);
                       ctx.response.body = HttpError.createError(415, `Invalid content type: ${endpoint.contentType.contextContentType}`);
                       return;
                     }
                   }
 
                   try {
-                    console.log(controller);
-                    console.log(ctx);
                     handler.call(controller, ctx);
                   }
                   catch(error: any) {
