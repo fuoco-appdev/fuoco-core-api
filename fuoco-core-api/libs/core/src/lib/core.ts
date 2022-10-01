@@ -67,9 +67,13 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   Oak.RouteParams<string>,
                   Record<string | number, string | undefined>
                 >) => {
+                  console.log(endpoint);
                   if (endpoint.guards) {
+                    console.log(endpoint.guards);
                     for (const guard of endpoint.guards) {
+                      console.log(guard);
                       if (!guard.canExecute(ctx)) {
+                        console.log("guard");
                         ctx.response.body = HttpError.createError(401, 'Not authorized!');
                         return;
                       }
@@ -77,9 +81,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   }
 
                   if (endpoint.contentType) {
-                    console.log(endpoint.contentType);
                     if (!endpoint.contentType.canExecute(ctx)) {
-                      console.log(ctx);
                       ctx.response.body = HttpError.createError(415, `Invalid content type: ${endpoint.contentType.contextContentType}`);
                       return;
                     }
