@@ -53,6 +53,7 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
         if (endpoints) {
             for (const key in endpoints) {
               const endpoint = endpoints[key];
+              console.log(endpoint);
               Core.assertEndpoint(endpoint.path);
               const fullPath = basePath + endpoint.path;
               const handler = endpoint.handler as ((ctx: Oak.RouterContext<
