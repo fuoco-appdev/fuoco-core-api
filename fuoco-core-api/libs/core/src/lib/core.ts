@@ -59,36 +59,30 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   string,
                   Oak.RouteParams<string>,
                   Record<string | number, string | undefined>
-                >) => void);
+                >) => Promise<void>);
               const wrapper = Core.endpointHandler(
                 controller,
-                (ctx: Oak.RouterContext<
+                async (ctx: Oak.RouterContext<
                   string,
                   Oak.RouteParams<string>,
                   Record<string | number, string | undefined>
                 >) => {
-                  console.log(endpoint);
-                  if (endpoint.guards) {
-                    console.log(endpoint.guards);
-                    for (const guard of endpoint.guards) {
-                      console.log(guard);
-                      if (!guard.canExecute(ctx)) {
-                        console.log("guard");
-                        ctx.response.body = HttpError.createError(401, 'Not authorized!');
-                        return;
+                  try {
+                    if (endpoint.guards) {
+                      for (const guard of endpoint.guards) {
+                        if (await !guard.canExecuteAsync(ctx)) {
+                          throw HttpError.createError(401, 'Not authorized!');
+                        }
                       }
                     }
-                  }
-
-                  if (endpoint.contentType) {
-                    if (!endpoint.contentType.canExecute(ctx)) {
-                      ctx.response.body = HttpError.createError(415, `Invalid content type: ${endpoint.contentType.contextContentType}`);
-                      return;
+  
+                    if (endpoint.contentType) {
+                      if (await !endpoint.contentType.canExecuteAsync(ctx)) {
+                        throw HttpError.createError(415, `Invalid content type: ${endpoint.contentType.contextContentType}`);
+                      }
                     }
-                  }
 
-                  try {
-                    handler.call(controller, ctx);
+                    await handler.call(controller, ctx);
                   }
                   catch(error: any) {
                     ctx.response.body = error;

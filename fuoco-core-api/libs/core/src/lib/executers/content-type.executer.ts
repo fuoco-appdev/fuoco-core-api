@@ -18,16 +18,16 @@ export class ContentTypeExecuter extends Executer {
         return this._contextContentType;
     }
 
-    public canExecute(ctx: Oak.RouterContext<
+    public async canExecuteAsync(ctx: Oak.RouterContext<
         string,
         Oak.RouteParams<string>,
         Record<string | number, string | undefined>
-      >): boolean {
+      >): Promise<boolean> {
         if (ctx.request.headers.has("content-type")) {
             this._contextContentType = ctx.request.headers.get("content-type") ?? "";
-            return this._contextContentType === this._contentType;
+            return await this._contextContentType === this._contentType;
         }
 
-        return false;
+        return await false;
     }
 }
