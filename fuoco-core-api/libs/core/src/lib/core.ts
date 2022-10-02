@@ -70,8 +70,8 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                   try {
                     if (endpoint.guards) {
                       for (const guard of endpoint.guards) {
-                        console.log("guard");
-                        if (await !guard.canExecuteAsync(ctx)) {
+                        const canExecute = await guard.canExecuteAsync(ctx);
+                        if (!canExecute) {
                           console.error("Throw guard");
                           throw HttpError.createError(401, 'Not authorized!');
                         }
@@ -79,8 +79,8 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                     }
   
                     if (endpoint.contentType) {
-                      console.log("contentType");
-                      if (await !endpoint.contentType.canExecuteAsync(ctx)) {
+                      const canExecute = await endpoint.contentType.canExecuteAsync(ctx);
+                      if (!canExecute) {
                         throw HttpError.createError(415, `Invalid content type: ${endpoint.contentType.contextContentType}`);
                       }
                     }
