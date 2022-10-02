@@ -72,7 +72,6 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                       for (const guard of endpoint.guards) {
                         const canExecute = await guard.canExecuteAsync(ctx);
                         if (!canExecute) {
-                          console.error("Throw guard");
                           throw HttpError.createError(401, 'Not authorized!');
                         }
                       }
@@ -85,7 +84,6 @@ import * as HttpError from "https://deno.land/x/http_errors@3.0.0/mod.ts";
                       }
                     }
 
-                    console.log("handler");
                     await handler.call(controller, ctx);
                   }
                   catch(error: any) {
