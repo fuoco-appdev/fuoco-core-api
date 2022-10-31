@@ -13,11 +13,10 @@ export class MailService {
         this._handlebars = new Handlebars();
     }
 
-    public async sendAsync(
+    public async sendFromHtmlAsync(
         fromEmail: string,
         toEmail: string,
         subject: string,
-        content: string,
         htmlUri: string,
         context: Record<string, string>
     ): Promise<void> {
@@ -27,10 +26,25 @@ export class MailService {
             from: fromEmail,
             to: toEmail,
             subject: subject,
-            content: content,
             html: compiledHtml,
         });
           
         await this._client.close();
-    } 
+    }
+    
+    public async sendFromContentAsync(
+        fromEmail: string,
+        toEmail: string,
+        subject: string,
+        content: string,
+    ): Promise<void> {
+        await this._client.send({
+            from: fromEmail,
+            to: toEmail,
+            subject: subject,
+            content: content,
+        });
+          
+        await this._client.close();
+    }
 }
