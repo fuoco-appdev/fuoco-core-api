@@ -5,11 +5,11 @@ import { SMTPClient, ClientOptions } from "https://deno.land/x/denomailer@1.5.0/
 import { Handlebars } from "https://deno.land/x/handlebars@v0.8.0/mod.ts";
 
 export class MailService {
-    private readonly _client: SMTPClient;
     private readonly _handlebars: Handlebars;
+    private readonly _config: ClientOptions;
 
     constructor(config: ClientOptions) {
-        this._client = new SMTPClient(config);
+        this._config = config;
         this._handlebars = new Handlebars();
     }
 
@@ -22,14 +22,16 @@ export class MailService {
     ): Promise<void> {
         const compiledHtml: string = await this._handlebars.render(htmlUri, context);
 
-        await this._client.send({
+        const client = new SMTPClient(this._config);
+
+        await client.send({
             from: fromEmail,
             to: toEmail,
             subject: subject,
             html: compiledHtml,
         });
           
-        await this._client.close();
+        await client.close();
     }
     
     public async sendFromContentAsync(
@@ -38,13 +40,15 @@ export class MailService {
         subject: string,
         content: string,
     ): Promise<void> {
-        await this._client.send({
+        const client = new SMTPClient(this._config);
+
+        await client.send({
             from: fromEmail,
             to: toEmail,
             subject: subject,
             content: content,
         });
           
-        await this._client.close();
+        await client.close();
     }
 }
