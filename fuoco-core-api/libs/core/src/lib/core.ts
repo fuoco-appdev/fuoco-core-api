@@ -51,8 +51,10 @@ export class Core {
       Core.assertEndpoint(controller.path);
       const basePath: string = controller.path;
       const endpoints = controller.endpoints as Record<string, EndpointContext>;
+      console.log(endpoints);
       if (endpoints) {
         for (const id in endpoints) {
+          console.log(controller.constructor.name);
           if (!id.startsWith(controller.constructor.name)) {
             continue;
           }
