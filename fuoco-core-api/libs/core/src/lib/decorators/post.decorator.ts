@@ -10,12 +10,10 @@ export function Post(path: string) {
     descriptor: PropertyDescriptor
   ) {
     console.log(target.constructor.name);
-    !target.endpoints &&
-      Object.defineProperty(target, 'endpoints', {
-        value: {} as Record<string, EndpointContext>,
-      });
-    if (!target.endpoints[key]) {
-      target.endpoints[key] = {
+    !target.constructor.prototype.endpoints &&
+      (target.constructor.prototype = {});
+    if (!target.constructor.prototype[key]) {
+      target.constructor.prototype[key] = {
         type: 'post',
         path: path,
         key: key,

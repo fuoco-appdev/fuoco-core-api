@@ -50,7 +50,10 @@ export class Core {
 
       Core.assertEndpoint(controller.path);
       const basePath: string = controller.path;
-      const endpoints = controller.endpoints as Record<string, EndpointContext>;
+      const endpoints = controller.constructor.prototype.endpoints as Record<
+        string,
+        EndpointContext
+      >;
       console.log('endpoints');
       console.log(endpoints);
       if (endpoints) {
