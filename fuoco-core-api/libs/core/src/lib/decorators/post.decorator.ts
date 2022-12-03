@@ -10,7 +10,9 @@ export function Post(path: string) {
     descriptor: PropertyDescriptor
   ) {
     !target.endpoints &&
-      (target.endpoints = {} as Record<string, EndpointContext>);
+      Object.defineProperty(target, 'endpoints', {
+        value: {} as Record<string, EndpointContext>,
+      });
     target.endpoints[key] = {
       type: 'post',
       path: path,
