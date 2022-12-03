@@ -9,11 +9,12 @@ export function Post(path: string) {
     key: string,
     descriptor: PropertyDescriptor
   ) {
-    !target.endpoints &&
+    !target['endpoints'] &&
       Object.defineProperty(target, 'endpoints', {
         value: {} as Record<string, EndpointContext>,
       });
-    target.endpoints[key] = {
+    console.log(target['endpoints']);
+    target['endpoints'][key] = {
       type: 'post',
       path: path,
       key: key,
