@@ -11,6 +11,9 @@ export function Post(path: string) {
   ) {
     const originalValue = descriptor.value;
     descriptor.value = function (...args: any[]) {
+      console.log(this);
+      !target.endpoints &&
+        (target.endpoints = {} as Record<string, EndpointContext>);
       target.endpoints[key] = {
         type: 'post',
         path: path,
