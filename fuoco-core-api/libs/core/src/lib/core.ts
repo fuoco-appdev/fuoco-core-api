@@ -45,6 +45,10 @@ export class Core {
       const prototype = Object.getPrototypeOf(controller);
       console.log('prototype');
       console.log(prototype);
+      console.log('prototype2');
+      console.log(controller.prototype);
+      console.log('prototype3');
+      console.log(controller.constructor.prototype);
       console.log('controller');
       console.log(controller);
       if (!controller.path) {
