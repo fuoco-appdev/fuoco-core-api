@@ -9,16 +9,16 @@ export function Post(path: string) {
     key: string,
     descriptor: PropertyDescriptor
   ) {
-    console.log(target.constructor.name);
-    !target.constructor.prototype.endpoints &&
-      (target.constructor.prototype = {});
-    if (!target.constructor.prototype[key]) {
-      target.constructor.prototype[key] = {
-        type: 'post',
-        path: path,
-        key: key,
-        handler: descriptor.value,
-      };
-    }
+    const id = `${target.constructor.name}-${key}`;
+    !target.endpoints &&
+      Object.defineProperty(target, 'endpoints', {
+        value: {} as Record<string, EndpointContext>,
+      });
+    target.endpoints[id] = {
+      type: 'post',
+      path: path,
+      key: key,
+      handler: descriptor.value,
+    };
   };
 }
