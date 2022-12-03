@@ -42,8 +42,6 @@ export class Core {
     controllers: any[]
   ) {
     for (const controller of controllers) {
-      console.log('controller');
-      console.log(controller);
       if (!controller.path) {
         throw new Error(
           `Controller ${controller} must have a @Controller() decorator!`

@@ -9,6 +9,7 @@ export function Post(path: string) {
     key: string,
     descriptor: PropertyDescriptor
   ) {
+    console.log(target);
     target.endpoints =
       target.endpoints ?? ({} as Record<string, EndpointContext>);
     target.endpoints[key] = {
