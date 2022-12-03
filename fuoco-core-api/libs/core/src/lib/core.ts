@@ -42,7 +42,6 @@ export class Core {
     controllers: any[]
   ) {
     for (const controller of controllers) {
-      const prototype = Object.getPrototypeOf(controller);
       console.log('controller');
       console.log(controller);
       if (!controller.path) {
@@ -53,13 +52,11 @@ export class Core {
 
       Core.assertEndpoint(controller.path);
       const basePath: string = controller.path;
-      const endpoints = prototype.endpoints as Record<string, EndpointContext>;
+      const endpoints = controller.endpoints as Record<string, EndpointContext>;
       console.log('endpoints');
       console.log(endpoints);
       if (endpoints) {
         for (const key in endpoints) {
-          console.log('key');
-          console.log(key);
           const endpoint = endpoints[key];
           Core.assertEndpoint(endpoint.path);
           const fullPath = basePath + endpoint.path;
