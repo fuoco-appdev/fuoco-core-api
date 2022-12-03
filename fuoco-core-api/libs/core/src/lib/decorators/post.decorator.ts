@@ -9,19 +9,18 @@ export function Post(path: string) {
     key: string,
     descriptor: PropertyDescriptor
   ) {
-    const originalValue = descriptor.value;
-    descriptor.value = function (...args: any[]) {
-      console.log(this);
-      !target.endpoints &&
-        (target.endpoints = {} as Record<string, EndpointContext>);
+    console.log(target.constructor.name);
+    !target.endpoints &&
+      Object.defineProperty(target, 'endpoints', {
+        value: {} as Record<string, EndpointContext>,
+      });
+    if (!target.endpoints[key]) {
       target.endpoints[key] = {
         type: 'post',
         path: path,
         key: key,
-        handler: originalValue,
+        handler: descriptor.value,
       };
-
-      return originalValue.apply(this, args);
-    };
+    }
   };
 }
