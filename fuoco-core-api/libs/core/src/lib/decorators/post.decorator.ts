@@ -19,6 +19,7 @@ export function Post(path: string) {
       path: path,
       key: key,
       handler: descriptor.value,
+      ...(target.endpoints[id] ?? {}),
     };
   };
 }

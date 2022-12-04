@@ -58,7 +58,6 @@ export class Core {
           }
 
           const endpoint = endpoints[id];
-          console.log(endpoint);
           Core.assertEndpoint(endpoint.path);
           const fullPath = basePath + endpoint.path;
           const handler = endpoint.handler as (
@@ -80,6 +79,7 @@ export class Core {
               try {
                 if (endpoint.guards) {
                   for (const guard of endpoint.guards) {
+                    console.log(guard);
                     const canExecute = await guard.canExecuteAsync(ctx);
                     if (!canExecute) {
                       throw HttpError.createError(401, 'Not authorized!');
@@ -88,6 +88,7 @@ export class Core {
                 }
 
                 if (endpoint.contentType) {
+                  console.log(endpoint.contentType);
                   const canExecute = await endpoint.contentType.canExecuteAsync(
                     ctx
                   );
