@@ -51,16 +51,14 @@ export class Core {
       Core.assertEndpoint(controller.path);
       const basePath: string = controller.path;
       const endpoints = controller.endpoints as Record<string, EndpointContext>;
-      console.log(endpoints);
       if (endpoints) {
         for (const id in endpoints) {
-          console.log(controller);
           if (!id.startsWith(controller.name)) {
             continue;
           }
-          console.log(id);
 
           const endpoint = endpoints[id];
+          console.log(endpoint);
           Core.assertEndpoint(endpoint.path);
           const fullPath = basePath + endpoint.path;
           const handler = endpoint.handler as (
