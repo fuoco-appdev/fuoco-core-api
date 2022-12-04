@@ -54,8 +54,8 @@ export class Core {
       console.log(endpoints);
       if (endpoints) {
         for (const id in endpoints) {
-          console.log(controller.constructor.name);
-          if (!id.startsWith(controller.constructor.name)) {
+          console.log(controller);
+          if (!id.startsWith(controller.name)) {
             continue;
           }
           console.log(id);
