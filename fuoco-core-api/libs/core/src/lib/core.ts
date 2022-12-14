@@ -100,7 +100,6 @@ export class Core {
 
                 await handler.call(controller, ctx);
               } catch (error: any) {
-                console.log(error);
                 ctx.response.body = error;
               }
             }
