@@ -5,10 +5,6 @@ import * as Oak from 'https://deno.land/x/oak@v11.1.0/mod.ts';
 // @ts-ignore
 import {
   // @ts-ignore
-  CorsOptions,
-  // @ts-ignore
-  CorsOptionsDelegate,
-  // @ts-ignore
   oakCors,
   // @ts-ignore
 } from 'https://deno.land/x/cors@v1.2.2/mod.ts';
