@@ -3,11 +3,7 @@
 // @ts-ignore
 import * as Oak from 'https://deno.land/x/oak@v11.1.0/mod.ts';
 // @ts-ignore
-import {
-  // @ts-ignore
-  oakCors,
-  // @ts-ignore
-} from 'https://deno.land/x/cors@v1.2.2/mod.ts';
+import { oakCors } from 'https://deno.land/x/cors@v1.2.2/mod.ts';
 // @ts-ignore
 import { EndpointContext } from './endpoint-context.ts';
 // @ts-ignore
@@ -25,15 +21,16 @@ export class Core {
     ): Promise<unknown> => await handler.call(arg, ctx, next);
   }
 
-  public static registerApp(
-    controllers: object[],
-    headers: Record<string, string>
-  ): Oak.Application {
+  public static registerApp(controllers: object[]): Oak.Application {
     const app = new Oak.Application();
-    const router = new Oak.Router();
     app.use(oakCors());
-    this.registerRouter(router, controllers, headers);
+
+    const router = new Oak.Router();
+    this.registerRouter(router, controllers);
+
     app.use(router.routes());
+    app.use(router.allowedMethods());
+
     return app;
   }
 
@@ -42,8 +39,7 @@ export class Core {
    */
   private static registerRouter(
     router: Oak.Router<Record<string, any>>,
-    controllers: any[],
-    headers: Record<string, string>
+    controllers: any[]
   ) {
     for (const controller of controllers) {
       if (!controller.path) {
@@ -103,30 +99,12 @@ export class Core {
                 }
 
                 await handler.call(controller, ctx);
-                for (const key in headers) {
-                  ctx.response.headers.set(key, headers[key]);
-                }
               } catch (error: any) {
                 ctx.response.body = error;
               }
             }
           );
 
-          router.options(
-            fullPath,
-            (
-              ctx: Oak.RouterContext<
-                string,
-                Oak.RouteParams<string>,
-                Record<string | number, string | undefined>
-              >
-            ) => {
-              ctx.response.status = Oak.Status.OK;
-              for (const key in headers) {
-                ctx.response.headers.set(key, headers[key]);
-              }
-            }
-          );
           switch (endpoint.type) {
             case 'delete':
               router.delete(fullPath, wrapper);
