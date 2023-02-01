@@ -33,10 +33,7 @@ export class Core {
     const router = new Oak.Router();
     app.use(oakCors());
     this.registerRouter(router, controllers, headers);
-
     app.use(router.routes());
-    app.use(router.allowedMethods());
-
     return app;
   }
 
@@ -124,7 +121,7 @@ export class Core {
                 Record<string | number, string | undefined>
               >
             ) => {
-              ctx.response.body = 'ok';
+              ctx.response.status = Oak.Status.OK;
               for (const key in headers) {
                 ctx.response.headers.set(key, headers[key]);
               }
