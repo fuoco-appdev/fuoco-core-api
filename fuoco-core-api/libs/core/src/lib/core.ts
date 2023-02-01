@@ -3,7 +3,11 @@
 // @ts-ignore
 import * as Oak from 'https://deno.land/x/oak@v11.1.0/mod.ts';
 // @ts-ignore
-import { oakCors } from 'https://deno.land/x/cors@v1.2.2/mod.ts';
+import {
+  CorsOptions,
+  CorsOptionsDelegate,
+  oakCors,
+} from 'https://deno.land/x/cors@v1.2.2/mod.ts';
 // @ts-ignore
 import { EndpointContext } from './endpoint-context.ts';
 // @ts-ignore
@@ -21,10 +25,13 @@ export class Core {
     ): Promise<unknown> => await handler.call(arg, ctx, next);
   }
 
-  public static registerApp(controllers: object[]): Oak.Application {
+  public static registerApp(
+    controllers: object[],
+    corsOptions?: CorsOptions | CorsOptionsDelegate<any>
+  ): Oak.Application {
     const app = new Oak.Application();
     const router = new Oak.Router();
-    this.registerRouter(router, controllers);
+    this.registerRouter(router, controllers, corsOptions);
 
     app.use(router.routes());
     app.use(router.allowedMethods());
@@ -37,7 +44,8 @@ export class Core {
    */
   private static registerRouter(
     router: Oak.Router<Record<string, any>>,
-    controllers: any[]
+    controllers: any[],
+    corsOptions?: CorsOptions | CorsOptionsDelegate<any>
   ) {
     for (const controller of controllers) {
       if (!controller.path) {
@@ -103,41 +111,28 @@ export class Core {
             }
           );
 
+          router.options(fullPath, oakCors(corsOptions));
           switch (endpoint.type) {
             case 'delete':
-              router
-                .options(fullPath, oakCors())
-                .delete(fullPath, oakCors(), wrapper);
+              router.delete(fullPath, oakCors(corsOptions), wrapper);
               break;
             case 'get':
-              router
-                .options(fullPath, oakCors())
-                .get(fullPath, oakCors(), wrapper);
+              router.get(fullPath, oakCors(corsOptions), wrapper);
               break;
             case 'head':
-              router
-                .options(fullPath, oakCors())
-                .head(fullPath, oakCors(), wrapper);
+              router.head(fullPath, oakCors(corsOptions), wrapper);
               break;
             case 'options':
-              router
-                .options(fullPath, oakCors())
-                .options(fullPath, oakCors(), wrapper);
+              router.options(fullPath, oakCors(corsOptions), wrapper);
               break;
             case 'patch':
-              router
-                .options(fullPath, oakCors())
-                .patch(fullPath, oakCors(), wrapper);
+              router.patch(fullPath, oakCors(corsOptions), wrapper);
               break;
             case 'post':
-              router
-                .options(fullPath, oakCors())
-                .post(fullPath, oakCors(), wrapper);
+              router.post(fullPath, oakCors(corsOptions), wrapper);
               break;
             case 'put':
-              router
-                .options(fullPath, oakCors())
-                .put(fullPath, oakCors(), wrapper);
+              router.put(fullPath, oakCors(corsOptions), wrapper);
               break;
           }
         }
