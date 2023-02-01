@@ -107,25 +107,25 @@ export class Core {
 
           switch (endpoint.type) {
             case 'delete':
-              router.delete(fullPath, wrapper);
+              router.options(fullPath, oakCors()).delete(fullPath, wrapper);
               break;
             case 'get':
-              router.get(fullPath, wrapper);
+              router.options(fullPath, oakCors()).get(fullPath, wrapper);
               break;
             case 'head':
-              router.head(fullPath, wrapper);
+              router.options(fullPath, oakCors()).head(fullPath, wrapper);
               break;
             case 'options':
-              router.options(fullPath, wrapper);
+              router.options(fullPath, oakCors()).options(fullPath, wrapper);
               break;
             case 'patch':
-              router.patch(fullPath, wrapper);
+              router.options(fullPath, oakCors()).patch(fullPath, wrapper);
               break;
             case 'post':
-              router.post(fullPath, wrapper);
+              router.options(fullPath, oakCors()).post(fullPath, wrapper);
               break;
             case 'put':
-              router.put(fullPath, wrapper);
+              router.options(fullPath, oakCors()).put(fullPath, wrapper);
               break;
           }
         }
