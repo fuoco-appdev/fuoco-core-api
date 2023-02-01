@@ -23,8 +23,6 @@ export class Core {
 
   public static registerApp(controllers: object[]): Oak.Application {
     const app = new Oak.Application();
-    app.use(oakCors());
-
     const router = new Oak.Router();
     this.registerRouter(router, controllers);
 
@@ -107,25 +105,39 @@ export class Core {
 
           switch (endpoint.type) {
             case 'delete':
-              router.options(fullPath, oakCors()).delete(fullPath, wrapper);
+              router
+                .options(fullPath, oakCors())
+                .delete(fullPath, oakCors(), wrapper);
               break;
             case 'get':
-              router.options(fullPath, oakCors()).get(fullPath, wrapper);
+              router
+                .options(fullPath, oakCors())
+                .get(fullPath, oakCors(), wrapper);
               break;
             case 'head':
-              router.options(fullPath, oakCors()).head(fullPath, wrapper);
+              router
+                .options(fullPath, oakCors())
+                .head(fullPath, oakCors(), wrapper);
               break;
             case 'options':
-              router.options(fullPath, oakCors()).options(fullPath, wrapper);
+              router
+                .options(fullPath, oakCors())
+                .options(fullPath, oakCors(), wrapper);
               break;
             case 'patch':
-              router.options(fullPath, oakCors()).patch(fullPath, wrapper);
+              router
+                .options(fullPath, oakCors())
+                .patch(fullPath, oakCors(), wrapper);
               break;
             case 'post':
-              router.options(fullPath, oakCors()).post(fullPath, wrapper);
+              router
+                .options(fullPath, oakCors())
+                .post(fullPath, oakCors(), wrapper);
               break;
             case 'put':
-              router.options(fullPath, oakCors()).put(fullPath, wrapper);
+              router
+                .options(fullPath, oakCors())
+                .put(fullPath, oakCors(), wrapper);
               break;
           }
         }
