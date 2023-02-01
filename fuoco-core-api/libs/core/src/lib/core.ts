@@ -10,6 +10,7 @@ import {
   CorsOptionsDelegate,
   // @ts-ignore
   oakCors,
+  // @ts-ignore
 } from 'https://deno.land/x/cors@v1.2.2/mod.ts';
 // @ts-ignore
 import { EndpointContext } from './endpoint-context.ts';
