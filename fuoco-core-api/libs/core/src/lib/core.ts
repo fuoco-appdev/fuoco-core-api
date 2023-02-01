@@ -31,11 +31,12 @@ export class Core {
 
   public static registerApp(
     controllers: object[],
-    corsOptions?: CorsOptions | CorsOptionsDelegate<any>
+    headers: Record<string, string>
   ): Oak.Application {
     const app = new Oak.Application();
     const router = new Oak.Router();
-    this.registerRouter(router, controllers, corsOptions);
+    app.use(oakCors());
+    this.registerRouter(router, controllers, headers);
 
     app.use(router.routes());
     app.use(router.allowedMethods());
@@ -49,7 +50,7 @@ export class Core {
   private static registerRouter(
     router: Oak.Router<Record<string, any>>,
     controllers: any[],
-    corsOptions?: CorsOptions | CorsOptionsDelegate<any>
+    headers: Record<string, string>
   ) {
     for (const controller of controllers) {
       if (!controller.path) {
@@ -109,34 +110,51 @@ export class Core {
                 }
 
                 await handler.call(controller, ctx);
+                for (const key in headers) {
+                  ctx.response.headers.set(key, headers[key]);
+                }
               } catch (error: any) {
                 ctx.response.body = error;
               }
             }
           );
 
-          router.options(fullPath, oakCors(corsOptions));
+          router.options(
+            fullPath,
+            (
+              ctx: Oak.RouterContext<
+                string,
+                Oak.RouteParams<string>,
+                Record<string | number, string | undefined>
+              >
+            ) => {
+              ctx.response.body = 'ok';
+              for (const key in headers) {
+                ctx.response.headers.set(key, headers[key]);
+              }
+            }
+          );
           switch (endpoint.type) {
             case 'delete':
-              router.delete(fullPath, oakCors(corsOptions), wrapper);
+              router.delete(fullPath, wrapper);
               break;
             case 'get':
-              router.get(fullPath, oakCors(corsOptions), wrapper);
+              router.get(fullPath, wrapper);
               break;
             case 'head':
-              router.head(fullPath, oakCors(corsOptions), wrapper);
+              router.head(fullPath, wrapper);
               break;
             case 'options':
-              router.options(fullPath, oakCors(corsOptions), wrapper);
+              router.options(fullPath, wrapper);
               break;
             case 'patch':
-              router.patch(fullPath, oakCors(corsOptions), wrapper);
+              router.patch(fullPath, wrapper);
               break;
             case 'post':
-              router.post(fullPath, oakCors(corsOptions), wrapper);
+              router.post(fullPath, wrapper);
               break;
             case 'put':
-              router.put(fullPath, oakCors(corsOptions), wrapper);
+              router.put(fullPath, wrapper);
               break;
           }
         }
