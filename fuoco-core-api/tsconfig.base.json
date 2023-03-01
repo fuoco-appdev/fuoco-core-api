@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@@fuoco.appdev/core-api/mail": ["libs/mail/src/index.ts"],
       "@fuoco.appdev/core": ["libs/core/src/index.ts"]
     },
     "extensions": {
