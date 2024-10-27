@@ -9,7 +9,7 @@ export function ContentType(contentType: string) {
   return function (
     target: Record<string, any>,
     key: string,
-    descriptor: PropertyDescriptor
+    descriptor?: PropertyDescriptor
   ) {
     const id = `${target.constructor.name}-${key}`;
     const instance = new ContentTypeExecuter(contentType);

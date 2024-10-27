@@ -9,7 +9,7 @@ export function Guard<T extends typeof GuardExecuter>(executer: T) {
   return function (
     target: Record<string, any>,
     key: string,
-    descriptor: PropertyDescriptor
+    descriptor?: PropertyDescriptor
   ) {
     const id = `${target.constructor.name}-${key}`;
     const instance = new executer();

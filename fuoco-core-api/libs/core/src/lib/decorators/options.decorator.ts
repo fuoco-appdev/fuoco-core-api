@@ -7,7 +7,7 @@ export function Options(path: string) {
   return function (
     target: Record<string, any>,
     key: string,
-    descriptor: PropertyDescriptor
+    descriptor?: PropertyDescriptor
   ) {
     const id = `${target.constructor.name}-${key}`;
     !target.endpoints &&
@@ -18,7 +18,7 @@ export function Options(path: string) {
       type: 'options',
       path: path,
       key: key,
-      handler: descriptor.value,
+      handler: descriptor?.value,
       ...(target.endpoints[id] ?? {}),
     };
   };
