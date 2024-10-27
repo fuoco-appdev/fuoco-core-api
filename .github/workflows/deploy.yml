@@ -29,10 +29,10 @@ jobs:
           node-version: lts/*
 
       - name: Install step
-        run: "npm install"
+        run: "cd fuoco-core-api && npm install"
 
       - name: Build step
-        run: "npm run build"
+        run: "cd fuoco-core-api && npm run build"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
