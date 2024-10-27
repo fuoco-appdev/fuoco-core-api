@@ -18,8 +18,12 @@ jobs:
         with:
           deno-version: v2.x
 
-      - name: Build step
-        run: "deno task build"
+      - name: Install packages
+        run: npm install
+        working-directory: ./fuoco-core-api
+        
+      - name: Build project
+        run: npm run build
         working-directory: ./fuoco-core-api
 
       - name: Upload to Deno Deploy
