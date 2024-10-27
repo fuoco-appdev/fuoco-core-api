@@ -25,10 +25,3 @@ jobs:
       - name: Build project
         run: npm run build
         working-directory: ./fuoco-core-api
-
-      - name: Upload to Deno Deploy
-        uses: denoland/deployctl@v1
-        with:
-          project: "fuoco-appdev-core-api"
-          entrypoint: https://deno.land/std/http/file_server.ts
-          root: fuoco-core-api/libs
