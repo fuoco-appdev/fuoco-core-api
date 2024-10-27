@@ -39,6 +39,6 @@ jobs:
         with:
           project: "fuoco-appdev-core-api"
           entrypoint: "fuoco-core-api/libs/core/src/index.ts"
-          root: ""
+          root: "fuoco-core-api"
           
           
